@@ -1,8 +1,10 @@
 
 export default {
-  content: [],
+  content: [
+     "./src/**/*.{html,ts}",
+  ],
   theme: {
     extend: {},
   },
-  plugins: [],
+  plugins: ["daisyui"],
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-developers',
@@ -6,6 +6,11 @@ import { Component } from '@angular/core';
   templateUrl: './developers.component.html',
   styleUrl: './developers.component.scss'
 })
-export class DevelopersComponent {
-
+export class DevelopersComponent implements OnInit {
+    constructor () {
+      console.log("constructor")
+    }
+    ngOnInit(): void {
+      console.log('on init')
+    }
 }
