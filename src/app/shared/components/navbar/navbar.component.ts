@@ -6,11 +6,11 @@ import { Component } from '@angular/core';
   imports: [CommonModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
-  standalone: true
+  standalone: true,
 })
 export class NavbarComponent {
-showMenuClick: boolean = false;
-  showMenuMethod(){
-    this.showMenuClick = !this.showMenuClick
+  showMenuClick: boolean = false;
+  showMenuMethod() {
+    this.showMenuClick = !this.showMenuClick;
   }
 }

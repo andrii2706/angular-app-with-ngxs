@@ -5,13 +5,13 @@ import { Component, OnInit } from '@angular/core';
   imports: [],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
-  standalone: true
+  standalone: true,
 })
 export class HomeComponent implements OnInit {
-    constructor () {
-      console.log("constructor")
-    }
-    ngOnInit(): void {
-      console.log('on init')
-    }
+  constructor() {
+    console.log('constructor');
+  }
+  ngOnInit(): void {
+    console.log('on init');
+  }
 }

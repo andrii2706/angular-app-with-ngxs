@@ -1,6 +1,6 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 @plugin "daisyui";
 
-.app_container{
-  @apply sm:p-5 lg:p-20
+.app_container {
+  @apply sm:p-5 lg:p-20;
 }

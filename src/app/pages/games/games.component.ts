@@ -4,13 +4,13 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-games',
   imports: [],
   templateUrl: './games.component.html',
-  styleUrl: './games.component.scss'
+  styleUrl: './games.component.scss',
 })
 export class GamesComponent implements OnInit {
-    constructor () {
-      console.log("constructor")
-    }
-    ngOnInit(): void {
-      console.log('on init')
-    }
+  constructor() {
+    console.log('constructor');
+  }
+  ngOnInit(): void {
+    console.log('on init');
+  }
 }

@@ -4,13 +4,13 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-developers',
   imports: [],
   templateUrl: './developers.component.html',
-  styleUrl: './developers.component.scss'
+  styleUrl: './developers.component.scss',
 })
 export class DevelopersComponent implements OnInit {
-    constructor () {
-      console.log("constructor")
-    }
-    ngOnInit(): void {
-      console.log('on init')
-    }
+  constructor() {
+    console.log('constructor');
+  }
+  ngOnInit(): void {
+    console.log('on init');
+  }
 }

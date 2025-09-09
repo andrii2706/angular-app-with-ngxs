@@ -4,8 +4,6 @@ import { Component } from '@angular/core';
   selector: 'app-filter',
   imports: [],
   templateUrl: './filter.component.html',
-  styleUrl: './filter.component.scss'
+  styleUrl: './filter.component.scss',
 })
-export class FilterComponent {
-
-}
+export class FilterComponent {}
