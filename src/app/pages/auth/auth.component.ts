@@ -1,8 +1,9 @@
 import { AuthService } from './../../shared/services/auth/auth.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { RegisterComponent } from './register/register.component';
 import { debounceTime } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-auth',
@@ -18,7 +19,9 @@ export class AuthComponent implements OnInit {
 
   private loginCredetialsForm!: FormGroup;
 
-  constructor(private authService: AuthService) {}
+  private route = inject(Router)
+
+  constructor(private authService: AuthService, private activateRoute: ActivatedRoute) {}
 
   ngOnInit(): void {}
 
@@ -49,6 +52,7 @@ export class AuthComponent implements OnInit {
           setTimeout(() => {
             this.showSnackbarSuccess = false;
           }, 3000);
+          this.route.navigate(['home'])
         }
       })
       .catch((error) => {
