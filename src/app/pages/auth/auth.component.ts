@@ -2,6 +2,7 @@ import { AuthService } from './../../shared/services/auth/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { RegisterComponent } from './register/register.component';
+import { debounceTime } from 'rxjs';
 
 @Component({
   selector: 'app-auth',
@@ -12,8 +13,10 @@ import { RegisterComponent } from './register/register.component';
 export class AuthComponent implements OnInit {
   registerForm: boolean = false;
   showSpinner: boolean = false;
+  showSnackbarError: boolean = false;
+  showSnackbarSuccess: boolean = false;
 
-  loginCredetialsForm!: FormGroup;
+  private loginCredetialsForm!: FormGroup;
 
   constructor(private authService: AuthService) {}
 
@@ -37,6 +40,28 @@ export class AuthComponent implements OnInit {
   }
 
   loginWithGoogle() {
-    this.authService.loginWithGoogleAuthO2().then().catch().finally();
+    this.showSpinner = true;
+    this.authService
+      .loginWithGoogleAuthO2()
+      .then((res) => {
+        if (res) {
+          this.showSnackbarSuccess = true;
+          setTimeout(() => {
+            this.showSnackbarSuccess = false;
+          }, 3000);
+        }
+      })
+      .catch((error) => {
+        if (error) {
+          this.showSnackbarError = true;
+          setTimeout(() => {
+            this.showSnackbarError = false;
+          }, 3000);
+        }
+        this.showSpinner = false;
+      })
+      .finally(() => {
+        this.showSpinner = false;
+      });
   }
 }
