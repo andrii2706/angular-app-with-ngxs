@@ -19,9 +19,12 @@ export class AuthComponent implements OnInit {
 
   private loginCredetialsForm!: FormGroup;
 
-  private route = inject(Router)
+  private route = inject(Router);
 
-  constructor(private authService: AuthService, private activateRoute: ActivatedRoute) {}
+  constructor(
+    private authService: AuthService,
+    private activateRoute: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {}
 
@@ -52,7 +55,8 @@ export class AuthComponent implements OnInit {
           setTimeout(() => {
             this.showSnackbarSuccess = false;
           }, 3000);
-          this.route.navigate(['home'])
+          this.authService.changeLoginStatus(true);
+          this.route.navigate(['home']);
         }
       })
       .catch((error) => {

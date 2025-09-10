@@ -1,7 +1,9 @@
+import { AuthService } from './shared/services/auth/auth.service';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +12,19 @@ import { NavbarComponent } from './shared/components/navbar/navbar.component';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent {
-  title = 'fe-presentaion';
-  // 85d9905e7cd7443c8983e54b4733abf5
+export class AppComponent implements OnInit {
+  userStatus: Observable<boolean> = of(false);
+  spinnerStatusService: any;
+
+  constructor(private authService: AuthService) {}
+
+  ngOnInit(): void {
+    this.userStatus = this.authService.userLoginStatus$;
+    const loggedIn = localStorage.getItem('isUserLogined');
+    if (loggedIn) {
+      if (this.authService.LoginStatus) {
+        this.authService.userLoginStatus.next(true);
+      }
+    }
+  }
 }
