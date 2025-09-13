@@ -10,6 +10,7 @@ export class GamesService {
   private httpClient = inject(HttpClient);
   private url = environment.apiUrl;
   private apiKey = environment.apiKey;
+
   constructor() {}
 
     getGames(): Observable<any>{
