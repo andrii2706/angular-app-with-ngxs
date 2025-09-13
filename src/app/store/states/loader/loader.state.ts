@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { State, Selector, Action, StateContext } from '@ngxs/store';
-import { LoaderAction } from '../../action/loader/loader.actions';
+import { setLoaderStatusAction } from '../../action/loader/loader.actions';
 
 export interface LoaderStateModel {
    status: boolean
@@ -16,12 +16,13 @@ export interface LoaderStateModel {
 export class LoaderState {
 
     @Selector()
-    static getState(state: LoaderStateModel) {
+    static getState(state: LoaderStateModel): LoaderStateModel {
         return state;
     }
 
-    @Action(LoaderAction)
-    setState(ctx: StateContext<LoaderStateModel>, action: LoaderAction){
+    @Action(setLoaderStatusAction)
+    setState(ctx: StateContext<LoaderStateModel>, action: setLoaderStatusAction){
         ctx.patchState({status: action.status})
     }
+
 }

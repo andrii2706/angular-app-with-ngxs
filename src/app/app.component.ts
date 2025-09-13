@@ -1,10 +1,13 @@
+import { setLoaderStatusAction } from './store/action/loader/loader.actions';
 import { AuthService } from './shared/services/auth/auth.service';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { Component, Inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
+import { Component, effect, Inject, Injector, OnInit, PLATFORM_ID, runInInjectionContext, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { Observable, of } from 'rxjs';
 import { LoaderComponent } from "./shared/components/loader/loader.component";
+import { Store } from '@ngxs/store';
+import { LoaderState } from './store/states/loader/loader.state';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +20,9 @@ export class AppComponent implements OnInit {
   userStatus: Observable<boolean | null> = of(false);
   spinnerStatus = signal(false)
 
-  constructor(private authService: AuthService, @Inject(PLATFORM_ID) private platformId: Object) {}
+  constructor(@Inject(PLATFORM_ID) private platformId: Object, private authService: AuthService, private store: Store, private injector: Injector) {
+
+  }
 
   ngOnInit(): void {
     if (!isPlatformBrowser(this.platformId)) {
@@ -29,10 +34,20 @@ export class AppComponent implements OnInit {
     if (!!loggedIn === true) {
       if (this.authService.LoginStatus) {
         this.authService.changeLoginStatus(true);
-       this.spinnerStatus.set(true)
+        this.store.dispatch(new setLoaderStatusAction(true))
       }
     }
-      this.spinnerStatus.set(false)
+    setTimeout(() => {
+      this.store.dispatch(new setLoaderStatusAction(false));
+    }, 800)
+
+       runInInjectionContext(this.injector, () => {
+         effect(() => {
+            this.store.select(LoaderState.getState).subscribe(state => {
+              this.spinnerStatus.set(state.status)
+            })
+      })
+       })
   }
 
 }

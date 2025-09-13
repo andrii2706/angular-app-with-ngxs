@@ -10,6 +10,8 @@ import { provideHttpClient } from '@angular/common/http';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { LoaderState } from './store/states/loader/loader.state';
+import { environment } from '../environment/environment';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -17,16 +19,9 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideHttpClient(),
     provideClientHydration(withEventReplay()),
-    provideStore([], withNgxsReduxDevtoolsPlugin(), withNgxsFormPlugin()),
+    provideStore([LoaderState], withNgxsReduxDevtoolsPlugin(), withNgxsFormPlugin()),
     provideFirebaseApp(() =>
-      initializeApp({
-        projectId: 'angular-presentation-for-fe',
-        appId: '1:1005106472230:web:3095aa554c5e34e7698de7',
-        storageBucket: 'angular-presentation-for-fe.firebasestorage.app',
-        apiKey: 'AIzaSyBLmJ0fMchn9qwjbqywIEO2L5g5in9zRNo',
-        authDomain: 'angular-presentation-for-fe.firebaseapp.com',
-        messagingSenderId: '1005106472230',
-      })
+      initializeApp(environment.firebaseConfig)
     ),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
