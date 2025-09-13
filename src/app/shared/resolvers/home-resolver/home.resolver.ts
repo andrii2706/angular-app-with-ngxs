@@ -19,5 +19,6 @@ export const homeResolver: ResolveFn<boolean> = (route, state) => {
     finalize(() => store.dispatch(new setLoaderStatusAction(false))),
     takeUntilDestroyed(destroyRef)
   );
+  store.dispatch(new setLoaderStatusAction(false));
   return true;
 };
