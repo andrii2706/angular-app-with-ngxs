@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
+import { GamesService } from '../../shared/services/games/games.service';
+import { Game } from '../../shared/models/games.interfaces';
+import { MainInterface } from '../../shared/models/main.interfaces';
 
 @Component({
   selector: 'app-home',
@@ -8,9 +11,10 @@ import { Component, OnInit } from '@angular/core';
   standalone: true,
 })
 export class HomeComponent implements OnInit {
-  constructor() {
-    console.log('constructor');
-  }
+  private gamesService = inject(GamesService);
+
+  games = signal<MainInterface<Game> | null>(null);
+
   ngOnInit(): void {
     console.log('on init');
   }

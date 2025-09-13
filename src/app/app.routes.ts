@@ -6,7 +6,7 @@ import { gamesResolver } from './shared/resolvers/games/games.resolver';
 import { profileResolver } from './shared/resolvers/profile/profile.resolver';
 
 export const routes: Routes = [
-    {
+  {
     path: '',
     pathMatch: 'full',
     redirectTo: 'auth',
@@ -22,14 +22,14 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/home/home.component').then((c) => c.HomeComponent),
     title: 'Home',
     canActivate: [authGuard],
-    resolve: [homeResolver]
+    resolve: [homeResolver],
   },
   {
     path: 'games',
     loadComponent: () => import('./pages/games/games.component').then((c) => c.GamesComponent),
     title: 'Games',
     canActivate: [authGuard],
-    resolve: [gamesResolver]
+    resolve: [gamesResolver],
   },
   {
     path: 'developers',
@@ -37,7 +37,7 @@ export const routes: Routes = [
       import('./pages/developers/developers.component').then((c) => c.DevelopersComponent),
     title: 'Developers',
     canActivate: [authGuard],
-    resolve: [developersResolver]
+    resolve: [developersResolver],
   },
   {
     path: 'profile',
@@ -45,6 +45,6 @@ export const routes: Routes = [
       import('./pages/profile/profile.component').then((c) => c.ProfileComponent),
     title: 'Profile',
     canActivate: [authGuard],
-    resolve: [profileResolver]
+    resolve: [profileResolver],
   },
 ];

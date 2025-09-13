@@ -20,9 +20,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(),
     provideClientHydration(withEventReplay()),
     provideStore([LoaderState], withNgxsReduxDevtoolsPlugin(), withNgxsFormPlugin()),
-    provideFirebaseApp(() =>
-      initializeApp(environment.firebaseConfig)
-    ),
+    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
   ],
