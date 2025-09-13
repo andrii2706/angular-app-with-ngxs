@@ -1,6 +1,12 @@
 <section>
   <app-navbar></app-navbar>
+  @if (spinnerStatus()) {
+    <app-loader ></app-loader>
+  }@else{
   <div class="app_container">
     <router-outlet></router-outlet>
   </div>
+  }
+
+
 </section>

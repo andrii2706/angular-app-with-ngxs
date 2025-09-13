@@ -7,5 +7,4 @@ import { Component, input } from '@angular/core';
   styleUrl: './loader.component.scss',
 })
 export class LoaderComponent {
-  showLoader = input(false);
 }

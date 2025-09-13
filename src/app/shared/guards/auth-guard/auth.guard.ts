@@ -7,10 +7,10 @@ export const authGuard: CanActivateFn = (route, state) => {
   const authService = inject(AuthService);
   const router = inject(Router);
 
-  return authService.userLoginStatus.pipe(
+  return authService.userLoginStatus$.pipe(
     map((status) => {
-      if (status && state.url === '/') {
-        router.parseUrl('/home');
+      if (status && state.url === '/auth') {
+        router.navigate(['/home']);
         return false;
       }
 
@@ -18,10 +18,10 @@ export const authGuard: CanActivateFn = (route, state) => {
         return true;
       }
 
-      if (state.url === '/') {
+      if (state.url === '/auth') {
         return true;
       } else {
-        router.parseUrl('/');
+        router.navigate(['/auth']);
         return false;
       }
     })
