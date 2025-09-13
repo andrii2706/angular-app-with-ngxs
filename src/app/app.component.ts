@@ -48,9 +48,6 @@ export class AppComponent implements OnInit {
         this.authService.changeLoginStatus(true);
       }
     }
-    setTimeout(() => {
-      this.store.dispatch(new setLoaderStatusAction(false));
-    }, 800);
 
     runInInjectionContext(this.injector, () => {
       effect(() => {

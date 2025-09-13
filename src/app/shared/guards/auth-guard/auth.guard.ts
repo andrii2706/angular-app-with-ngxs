@@ -14,6 +14,7 @@ export const authGuard: CanActivateFn = (route, state) => {
     map((status) => {
       store.dispatch(new setLoaderStatusAction(true));
       if (status && state.url === '/auth') {
+        store.dispatch(new setLoaderStatusAction(false));
         router.navigate(['/home']);
         return false;
       }
