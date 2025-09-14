@@ -17,6 +17,7 @@ export class GamesService {
 
   // signals
   games = signal<MainInterface<Game> | null>(null);
+  gameById = signal<Game | null>(null);
 
   constructor() {}
 
@@ -42,31 +43,33 @@ export class GamesService {
     });
   }
 
-  getLastReleasedGames(page: number, dates: string): Observable<any> {
-    // const query = (dates: string) =>
-    // 	new HttpParams({
-    // 		fromObject: {
-    // 			key: this.key,
-    // 			page,
-    // 			dates: dates,
-    // 		},
-    // 	});
-    return this.httpClient.get<any>(`${this.url}games`, {
-      // params: query(dates),
+  getLastReleasedGames(
+    page: number,
+    dates: string,
+    ordering: string = ''
+  ): Observable<MainInterface<Game>> {
+    const query = (dates: string) =>
+      new HttpParams({
+        fromObject: {
+          key: this.apiKey,
+          page,
+          dates: dates,
+          ordering: ordering,
+        },
+      });
+    return this.httpClient.get<MainInterface<Game>>(`${this.url}games`, {
+      params: query(dates),
     });
   }
 
   getGameMovieById(id: string): Observable<any> {
-    // const paramsForGameBtId = new HttpParams({
-    // 	fromObject: {
-    // 		key: this.key,
-    // 	},
-    // });
-    return this.httpClient.get<any>(
-      `${this.url}games/${id}/movies`
-      // {
-      // 	params: paramsForGameBtId,
-      // }
-    );
+    const paramsForGameBtId = new HttpParams({
+      fromObject: {
+        key: this.apiKey,
+      },
+    });
+    return this.httpClient.get<any>(`${this.url}games/${id}/movies`, {
+      params: paramsForGameBtId,
+    });
   }
 }
