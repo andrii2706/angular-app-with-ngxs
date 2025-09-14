@@ -31,7 +31,7 @@
           <a routerLink="developers">Developers</a>
         </li>
         <li>
-          <a routerLink="">Logout</a>
+          <a routerLink="auth">Logout</a>
         </li>
       </ul>
     </div>
@@ -40,7 +40,7 @@
     <h2 class="text-xl">Games Application</h2>
   </div>
   <div class="navbar-end">
-    <button class="btn btn-ghost btn-circle">
+    <button class="btn btn-ghost btn-circle" (click)="showFilter()">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         class="h-5 w-5"
@@ -67,4 +67,11 @@
       </div>
     </button>
   </div>
+</div>
+
+<div class="bg-base-100 collapse" [class.hidden]="showFilterProp">
+  <div class="collapse-title">
+    <h2 class="text-xl font-medium">Filter games</h2>
+  </div>
+  <div class="collapse-content">Filter content</div>
 </div>

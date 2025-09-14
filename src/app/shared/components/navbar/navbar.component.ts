@@ -11,6 +11,12 @@ import { RouterModule } from '@angular/router';
 })
 export class NavbarComponent {
   showMenuClick: boolean = false;
+  showFilterProp: boolean = true;
+
+  showFilter() {
+    this.showFilterProp = !this.showFilterProp;
+  }
+
   showMenuMethod() {
     this.showMenuClick = !this.showMenuClick;
   }
