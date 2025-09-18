@@ -1,1 +1,35 @@
-<p>card works!</p>
+<div
+  class="card bg-gray-600 shadow-sm"
+  [ngClass]="{ 'md:w-[500] xl:w-[700px]': changeStyle(), 'w-96': !changeStyle() }"
+>
+  <figure>
+    <img [src]="game()?.background_image" alt="Shoes" />
+  </figure>
+  <div class="card-body">
+    <div
+      class="mx-2 flex h-[40px] items-center justify-start"
+      [innerHTML]="platforms() | icon"
+    ></div>
+    <h2 class="card-title">
+      {{ game()?.name }}
+      <div class="badge badge-neutral">{{ game()?.metacritic }}</div>
+    </h2>
+    <div class="divider my-1"></div>
+
+    <div class="card-actions flex w-full items-center justify-between">
+      <h4>Genres:</h4>
+      <div class="">
+        @for (item of game()?.genres; track $index) {
+          <button class="badge badge-outline mr-2 cursor-pointer" (click)="genres()">
+            {{ item.name }}
+          </button>
+        }
+      </div>
+    </div>
+    <div class="divider my-1"></div>
+    <div class="flex w-full items-center justify-between">
+      <h4>Release date:</h4>
+      <span>{{ game()?.released | date: 'mediumDate' }}</span>
+    </div>
+  </div>
+</div>

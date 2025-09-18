@@ -1,4 +1,4 @@
-interface Platforms {
+export interface Platforms {
   platform: {
     id: number;
     name: string;
@@ -24,6 +24,8 @@ export interface Game {
   rating?: number;
   rating_top?: number;
   metacritic?: number;
+  genres?: Genres[];
+  stores?: Stores[];
   platforms?: Platforms[];
 }
 
@@ -71,44 +73,9 @@ export interface GameDetails {
   reactions: {
     [key: string]: number;
   };
-  platforms: [
-    {
-      platform: {
-        id: number;
-        name: string;
-        slug: string;
-        image: string;
-        year_end: string;
-        year_start: string;
-        games_count: number;
-        image_background: string;
-      };
-      requirements_en: {
-        minimum: string;
-        recommended: string;
-      };
-    },
-  ];
-  genres: [
-    {
-      id: number;
-      name: string;
-      slug: string;
-      image_background: string;
-    },
-  ];
-  stores: [
-    {
-      id: number;
-      store: {
-        id: number;
-        name: string;
-        slug: string;
-        domain: string;
-        image_background: string;
-      };
-    },
-  ];
+  platforms: Platforms[];
+  genres: Genres[];
+  stores: Stores[];
   tags: [
     {
       id: number;
@@ -162,6 +129,25 @@ export interface GameTrailer {
   name: string;
   preview: string;
   date: object;
+}
+
+export interface Genres {
+  games_count: number;
+  id: number;
+  image_background: string;
+  name: string;
+  slug: string;
+}
+
+export interface Stores {
+  id: number;
+  store: {
+    id: number;
+    name: string;
+    slug: string;
+    domain: string;
+    image_background: string;
+  };
 }
 
 export interface IAchivments {
