@@ -1,5 +1,5 @@
 <div
-  class="card bg-gray-600 shadow-sm group transition-all duration-300 hover:z-30 hover:w-[450px]"
+  class="card group bg-gray-600 shadow-sm transition-all duration-300 hover:z-30 hover:w-[450px]"
   [ngClass]="{ 'md:w-[500px] xl:w-[700px]': changeStyle(), 'w-96': !changeStyle() }"
 >
   <figure>
@@ -14,7 +14,7 @@
 
     <h2 class="card-title">
       {{ game()?.name }}
-      <div class="badge badge-neutral ">
+      <div class="badge badge-neutral">
         {{ game()?.metacritic }}
       </div>
     </h2>
@@ -25,10 +25,7 @@
       <h4>Genres:</h4>
       <div class="[&>button:nth-child(n+5)]:mt-2">
         @for (item of game()?.genres; track $index) {
-          <button
-            class="badge badge-outline mr-2 cursor-pointer "
-            (click)="genres()"
-          >
+          <button class="badge badge-outline mr-2 cursor-pointer" (click)="genres()">
             {{ item.name }}
           </button>
         }
@@ -42,13 +39,19 @@
       <span>{{ game()?.released | date: 'mediumDate' }}</span>
     </div>
 
-     <div class="divider my-1"></div>
+    <div class="divider my-1"></div>
 
     <div
-      class="h-0 overflow-hidden transition-all duration-500 group-hover:h-auto text-white flex items-center justify-center flex-col"
+      class=" flex h-0 flex-col items-start justify-center overflow-hidden text-white transition-all duration-500 group-hover:h-auto"
     >
-      <button class="btn btn-soft mb-2">Game Details </button>
-      <button class="btn btn-soft">Add to Wish list </button>
+      <button class="flex justify-between items-center w-full cursor-pointer rounded-lg bg-gray-800 text-start opacity-75 mb-2 p-2 transition-all duration-500  hover:text-amber-300">
+        Game Details
+<lucide-angular name="chevron-right" class="w-[20px] h-[20px]"></lucide-angular>
+      </button>
+      <button class="flex justify-between items-center w-full cursor-pointer rounded-lg bg-gray-800 text-start opacity-75 p-2 hover:text-amber-300">
+        Add to Wish list
+        <lucide-angular name="chevron-right" class="w-[20px] h-[20px]"></lucide-angular>
+      </button>
     </div>
   </div>
 </div>

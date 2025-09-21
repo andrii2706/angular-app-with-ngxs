@@ -1,12 +1,12 @@
 import { Component, input, OnInit, computed } from '@angular/core';
-import { Game, Platforms } from '../../models/games.interfaces';
+import { Game } from '../../models/games.interfaces';
 import { DatePipe, NgClass } from '@angular/common';
 import { IconPipe } from '../../pipes/icon.pipe';
-import { platform } from 'os';
+import { LucideAngularModule } from 'lucide-angular';
 
 @Component({
   selector: 'app-card',
-  imports: [DatePipe, NgClass, IconPipe],
+  imports: [DatePipe, NgClass, IconPipe, LucideAngularModule],
   standalone: true,
   templateUrl: './card.component.html',
   styleUrl: './card.component.scss',

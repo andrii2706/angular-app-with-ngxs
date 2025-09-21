@@ -1,4 +1,4 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
@@ -12,6 +12,7 @@ import { getAuth, provideAuth } from '@angular/fire/auth';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { LoaderState } from './store/states/loader/loader.state';
 import { environment } from '../environment/environment';
+import { LucideAngularModule, ChevronRight, Heart, Activity, Airplay, AlarmClock, AlarmClockCheck, AlarmClockMinus, AlarmClockOff, Album, Anchor, ArrowDown, ArrowLeft, ArrowRight, ArrowUp, Badge, Bell, Book, Bookmark, Calendar, Camera, Check, ChevronDown, ChevronLeft, ChevronUp, Home, Info, Play, Plus, Settings, Star, User, Search } from 'lucide-angular';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -23,5 +24,41 @@ export const appConfig: ApplicationConfig = {
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
+    importProvidersFrom(
+      LucideAngularModule.pick({
+        Activity,
+        Airplay,
+        AlarmClock,
+        AlarmClockCheck,
+        AlarmClockMinus,
+        AlarmClockOff,
+        Album,
+        Anchor,
+        ArrowDown,
+        ArrowLeft,
+        ArrowRight,
+        ArrowUp,
+        Badge,
+        Bell,
+        Book,
+        Bookmark,
+        Calendar,
+        Camera,
+        Check,
+        ChevronDown,
+        ChevronLeft,
+        ChevronRight,
+        ChevronUp,
+        Heart,
+        Home,
+        Info,
+        Play,
+        Plus,
+        Star,
+        User,
+        Settings,
+        Search
+      })
+    )
   ],
 };

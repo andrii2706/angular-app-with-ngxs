@@ -16,14 +16,16 @@ export class GamesService {
   private httpClient = inject(HttpClient);
 
   // signals
+  homeGames = signal<MainInterface<Game> | null>(null);
   games = signal<MainInterface<Game> | null>(null);
   gameById = signal<Game | null>(null);
 
   constructor() {}
 
-  getGames(): Observable<MainInterface<Game>> {
+  getGames(page: number): Observable<MainInterface<Game>> {
     const paramsForGames = new HttpParams({
       fromObject: {
+        page,
         key: this.apiKey,
       },
     });
@@ -32,7 +34,7 @@ export class GamesService {
     });
   }
 
-  getGameById(id: number): Observable<GameDetails> {
+  getGameById(id: number | null): Observable<GameDetails> {
     const paramsForGameBtId = new HttpParams({
       fromObject: {
         key: this.apiKey,
@@ -54,7 +56,6 @@ export class GamesService {
           key: this.apiKey,
           page,
           dates: dates,
-          ordering: ordering,
         },
       });
     return this.httpClient.get<MainInterface<Game>>(`${this.url}games`, {

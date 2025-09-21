@@ -4,6 +4,8 @@ import { homeResolver } from './shared/resolvers/home-resolver/home.resolver';
 import { developersResolver } from './shared/resolvers/developers/developers.resolver';
 import { gamesResolver } from './shared/resolvers/games/games.resolver';
 import { profileResolver } from './shared/resolvers/profile/profile.resolver';
+import { gameDetailsResolver } from './shared/resolvers/game-details/game-details.resolver';
+import { GameDetailsComponent } from './pages/games/components/game-details/game-details.component';
 
 export const routes: Routes = [
   {
@@ -31,6 +33,12 @@ export const routes: Routes = [
     canActivate: [authGuard],
     resolve: [gamesResolver],
   },
+   {
+          path: 'games/:id',
+          loadComponent: () => import('./pages/games/components/game-details/game-details.component').then((c) => c.GameDetailsComponent),
+          canActivate: [authGuard],
+          resolve: [gameDetailsResolver]
+      },
   {
     path: 'developers',
     loadComponent: () =>

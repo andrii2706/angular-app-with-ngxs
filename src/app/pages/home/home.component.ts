@@ -40,7 +40,7 @@ export class HomeComponent implements OnInit {
     this.showAndHideDesign = window.innerWidth > 1024;
     runInInjectionContext(this.injector, () => {
       effect(() => {
-        this.games.set(this.gamesService.games());
+        this.games.set(this.gamesService.homeGames());
       });
     });
   }
