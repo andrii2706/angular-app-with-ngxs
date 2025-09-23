@@ -19,6 +19,7 @@ export class AuthComponent implements OnInit {
 
   private loginCredetialsForm!: FormGroup;
 
+  private store = inject(Store);
   private route = inject(Router);
 
   constructor(
@@ -26,7 +27,9 @@ export class AuthComponent implements OnInit {
     private activateRoute: ActivatedRoute
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    
+  }
 
   initForm() {
     this.loginCredetialsForm = new FormGroup({
