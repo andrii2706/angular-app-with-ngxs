@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { RegisterComponent } from './register/register.component';
 import { debounceTime } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngxs/store'; 
 
 @Component({
   selector: 'app-auth',
@@ -28,7 +29,7 @@ export class AuthComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    
+    store.dispatch(new setLoaderStatusAction(false))
   }
 
   initForm() {
