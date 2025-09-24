@@ -3,6 +3,11 @@
   @if (spinnerStatus()) {
     <app-loader></app-loader>
   } @else {
+    @if (snackbarSuccesStatus()) {
+      <app-snackbar [snackBarStatus]="'success'" [message]="snackbarSuccesMessage()"></app-snackbar>
+    } @else if (snackbarErrorStatus()) {
+      <app-snackbar [snackBarStatus]="'error'" [message]="snackbarErrorMessage()"></app-snackbar>
+    }
     <div class="app_container">
       <router-outlet></router-outlet>
     </div>

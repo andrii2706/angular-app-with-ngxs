@@ -5,7 +5,7 @@ import { gameDetailsResolver } from '../game-details.resolver';
 
 describe('gameDetailsResolver', () => {
   const executeResolver: ResolveFn<boolean> = (...resolverParameters) =>
-      TestBed.runInInjectionContext(() => gameDetailsResolver(...resolverParameters));
+    TestBed.runInInjectionContext(() => gameDetailsResolver(...resolverParameters));
 
   beforeEach(() => {
     TestBed.configureTestingModule({});

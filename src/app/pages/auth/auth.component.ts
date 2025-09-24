@@ -4,7 +4,12 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { RegisterComponent } from './register/register.component';
 import { debounceTime } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Store } from '@ngxs/store'; 
+import { Store } from '@ngxs/store';
+import { setLoaderStatusAction } from '../../store/action/loader/loader.actions';
+import {
+  setSnackbarErrorShowAction,
+  setSnackbarSuccessShowAction,
+} from '../../store/action/snackbar/snackbar.actions';
 
 @Component({
   selector: 'app-auth',
@@ -23,14 +28,9 @@ export class AuthComponent implements OnInit {
   private store = inject(Store);
   private route = inject(Router);
 
-  constructor(
-    private authService: AuthService,
-    private activateRoute: ActivatedRoute
-  ) {}
+  constructor(private authService: AuthService) {}
 
-  ngOnInit(): void {
-    store.dispatch(new setLoaderStatusAction(false))
-  }
+  ngOnInit(): void {}
 
   initForm() {
     this.loginCredetialsForm = new FormGroup({
@@ -46,18 +46,15 @@ export class AuthComponent implements OnInit {
   loginWithCredetials() {
     const email = this.loginCredetialsForm.get('email')?.value;
     const password = this.loginCredetialsForm.get('password')?.value;
-    this.authService.loginWithCredetials(email, password).then().catch().finally();
-  }
-
-  loginWithGoogle() {
-    this.showSpinner = true;
     this.authService
-      .loginWithGoogleAuthO2()
+      .loginWithCredetials(email, password)
       .then((res) => {
         if (res) {
-          this.showSnackbarSuccess = true;
+          this.store.dispatch(
+            new setSnackbarSuccessShowAction(true, 'You Are Loggined Success fully')
+          );
           setTimeout(() => {
-            this.showSnackbarSuccess = false;
+            this.store.dispatch(new setSnackbarSuccessShowAction(false, ''));
           }, 3000);
           this.authService.changeLoginStatus(true);
           this.route.navigate(['home']);
@@ -65,15 +62,52 @@ export class AuthComponent implements OnInit {
       })
       .catch((error) => {
         if (error) {
-          this.showSnackbarError = true;
+          this.store.dispatch(
+            new setSnackbarErrorShowAction(
+              true,
+              'You are not loggined please wait some time and try again'
+            )
+          );
           setTimeout(() => {
-            this.showSnackbarError = false;
+            this.store.dispatch(new setSnackbarErrorShowAction(false, ''));
           }, 3000);
         }
-        this.showSpinner = false;
-      })
-      .finally(() => {
-        this.showSpinner = false;
+        this.store.dispatch(new setLoaderStatusAction(false));
       });
+  }
+
+  loginWithGoogle() {
+    this.authService
+      .loginWithGoogleAuthO2()
+      .then((res) => {
+        if (res) {
+          this.store.dispatch(
+            new setSnackbarSuccessShowAction(true, 'You Are Loggined Success fully')
+          );
+          setTimeout(() => {
+            this.store.dispatch(new setSnackbarSuccessShowAction(false, ''));
+          }, 3000);
+          this.authService.changeLoginStatus(true);
+          this.route.navigate(['home']);
+        }
+      })
+      .catch((error) => {
+        if (error) {
+          this.store.dispatch(
+            new setSnackbarErrorShowAction(
+              true,
+              'You are not loggined please wait some time and try again'
+            )
+          );
+          setTimeout(() => {
+            this.store.dispatch(new setSnackbarErrorShowAction(false, ''));
+          }, 3000);
+        }
+        this.store.dispatch(new setLoaderStatusAction(false));
+      });
+  }
+
+  returnToLoginBlock(status: boolean) {
+    this.registerForm = status;
   }
 }

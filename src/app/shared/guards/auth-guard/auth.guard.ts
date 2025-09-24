@@ -17,6 +17,8 @@ export const authGuard: CanActivateFn = (route, state) => {
         store.dispatch(new setLoaderStatusAction(false));
         router.navigate(['/home']);
         return false;
+      } else if (state.url !== '/auth' && !status) {
+        console.log('logout');
       }
 
       if (status) {
@@ -24,6 +26,7 @@ export const authGuard: CanActivateFn = (route, state) => {
       }
 
       if (state.url === '/auth') {
+        store.dispatch(new setLoaderStatusAction(false));
         return true;
       } else {
         router.navigate(['/auth']);

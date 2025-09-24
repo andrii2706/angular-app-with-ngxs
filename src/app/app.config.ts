@@ -12,7 +12,42 @@ import { getAuth, provideAuth } from '@angular/fire/auth';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { LoaderState } from './store/states/loader/loader.state';
 import { environment } from '../environment/environment';
-import { LucideAngularModule, ChevronRight, Heart, Activity, Airplay, AlarmClock, AlarmClockCheck, AlarmClockMinus, AlarmClockOff, Album, Anchor, ArrowDown, ArrowLeft, ArrowRight, ArrowUp, Badge, Bell, Book, Bookmark, Calendar, Camera, Check, ChevronDown, ChevronLeft, ChevronUp, Home, Info, Play, Plus, Settings, Star, User, Search } from 'lucide-angular';
+import {
+  LucideAngularModule,
+  ChevronRight,
+  Heart,
+  Activity,
+  Airplay,
+  AlarmClock,
+  AlarmClockCheck,
+  AlarmClockMinus,
+  AlarmClockOff,
+  Album,
+  Anchor,
+  ArrowDown,
+  ArrowLeft,
+  ArrowRight,
+  ArrowUp,
+  Badge,
+  Bell,
+  Book,
+  Bookmark,
+  Calendar,
+  Camera,
+  Check,
+  ChevronDown,
+  ChevronLeft,
+  ChevronUp,
+  Home,
+  Info,
+  Play,
+  Plus,
+  Settings,
+  Star,
+  User,
+  Search,
+} from 'lucide-angular';
+import { SnackbarErrorState, SnackbarSuccessState } from './store/states/snackbar/snackbar.state';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -20,7 +55,11 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideHttpClient(),
     provideClientHydration(withEventReplay()),
-    provideStore([LoaderState], withNgxsReduxDevtoolsPlugin(), withNgxsFormPlugin()),
+    provideStore(
+      [LoaderState, SnackbarSuccessState, SnackbarErrorState],
+      withNgxsReduxDevtoolsPlugin(),
+      withNgxsFormPlugin()
+    ),
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
@@ -57,8 +96,8 @@ export const appConfig: ApplicationConfig = {
         Star,
         User,
         Settings,
-        Search
+        Search,
       })
-    )
+    ),
   ],
 };

@@ -31,7 +31,7 @@
           <a routerLink="developers">Developers</a>
         </li>
         <li>
-          <a routerLink="auth">Logout</a>
+          <button (click)="logOutUser()">Logout</button>
         </li>
       </ul>
     </div>
@@ -41,7 +41,7 @@
   </div>
   <div class="navbar-end">
     <button class="btn btn-ghost btn-circle" (click)="showFilter()">
-      <lucide-angular name="search" class="w-[20px] h-[20px]"></lucide-angular>
+      <lucide-angular name="search" class="h-[20px] w-[20px]"></lucide-angular>
     </button>
     <button class="btn btn-ghost btn-circle">
       <div class="indicator">

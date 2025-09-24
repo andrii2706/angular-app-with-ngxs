@@ -18,7 +18,7 @@ export const homeResolver: ResolveFn<MainInterface<Game>> = (route, state) => {
   const gamesService = inject(GamesService);
   const destroyRef = inject(DestroyRef);
 
-  return gamesService.getLastReleasedGames(page, `${firstYearDay},${lastYearDay}` ).pipe(
+  return gamesService.getLastReleasedGames(page, `${firstYearDay},${lastYearDay}`).pipe(
     tap((games) => {
       gamesService.homeGames.set(games);
     }),

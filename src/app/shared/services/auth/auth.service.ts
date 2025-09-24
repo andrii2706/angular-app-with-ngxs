@@ -29,6 +29,7 @@ export class AuthService {
     this.loggedInStatus = status;
     localStorage.setItem('isUserLogined', `${this.loggedInStatus}`);
     this.userLoginStatus.next(status);
+
     if (userInfo) {
       // this.getGameById(userInfo.uid).then(() => {
       // 	localStorage.setItem(

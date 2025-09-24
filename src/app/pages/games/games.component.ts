@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-
 
 @Component({
   selector: 'app-games',
-  imports: [RouterOutlet],
+  imports: [],
   templateUrl: './games.component.html',
   styleUrl: './games.component.scss',
-  standalone: true
+  standalone: true,
 })
 export class GamesComponent implements OnInit {
   constructor() {

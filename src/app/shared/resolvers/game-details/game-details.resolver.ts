@@ -8,7 +8,7 @@ import { setLoaderStatusAction } from '../../../store/action/loader/loader.actio
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 export const gameDetailsResolver: ResolveFn<GameDetails> = (route, state) => {
- const store = inject(Store);
+  const store = inject(Store);
   const gamesService = inject(GamesService);
   const destroyRef = inject(DestroyRef);
   const router = inject(Router);
@@ -19,9 +19,8 @@ export const gameDetailsResolver: ResolveFn<GameDetails> = (route, state) => {
     router.navigate(['/games']);
   }
 
-  return gamesService.getGameById(Number(id))
-    .pipe(
-      finalize(() => store.dispatch(new setLoaderStatusAction(false))),
-      takeUntilDestroyed(destroyRef)
-    );
+  return gamesService.getGameById(Number(id)).pipe(
+    finalize(() => store.dispatch(new setLoaderStatusAction(false))),
+    takeUntilDestroyed(destroyRef)
+  );
 };

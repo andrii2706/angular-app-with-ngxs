@@ -8,16 +8,16 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { setLoaderStatusAction } from '../../../store/action/loader/loader.actions';
 import { MainInterface } from '../../models/main.interfaces';
 
-
 export const gamesResolver: ResolveFn<MainInterface<Game>> = (route, state) => {
-
   const store = inject(Store);
   const gamesService = inject(GamesService);
   const destroyRef = inject(DestroyRef);
 
-  return gamesService.getGames(1).pipe(tap(
-    (games) => {
-      gamesService.games.set(games)
-    }
-  ), finalize(() => store.dispatch(new setLoaderStatusAction(false))), takeUntilDestroyed(destroyRef));
+  return gamesService.getGames(1).pipe(
+    tap((games) => {
+      gamesService.games.set(games);
+    }),
+    finalize(() => store.dispatch(new setLoaderStatusAction(false))),
+    takeUntilDestroyed(destroyRef)
+  );
 };
