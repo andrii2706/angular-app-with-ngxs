@@ -3,7 +3,6 @@ import { Game } from '../../models/games.interfaces';
 import { DatePipe, NgClass } from '@angular/common';
 import { IconPipe } from '../../pipes/icon.pipe';
 import { LucideAngularModule } from 'lucide-angular';
-import { Store } from '@ngxs/store';
 
 @Component({
   selector: 'app-card',

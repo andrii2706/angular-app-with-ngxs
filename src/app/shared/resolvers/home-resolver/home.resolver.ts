@@ -2,7 +2,7 @@ import { DestroyRef, inject } from '@angular/core';
 import { ResolveFn } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { GamesService } from '../../services/games/games.service';
-import { finalize, tap } from 'rxjs';
+import { finalize, map, tap } from 'rxjs';
 import { setLoaderStatusAction } from '../../../store/action/loader/loader.actions';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MainInterface } from '../../models/main.interfaces';
@@ -21,6 +21,7 @@ export const homeResolver: ResolveFn<MainInterface<Game>> = (route, state) => {
   return gamesService.getLastReleasedGames(page, `${firstYearDay},${lastYearDay}`).pipe(
     tap((games) => {
       gamesService.homeGames.set(games);
+
     }),
     finalize(() => store.dispatch(new setLoaderStatusAction(false))),
     takeUntilDestroyed(destroyRef)

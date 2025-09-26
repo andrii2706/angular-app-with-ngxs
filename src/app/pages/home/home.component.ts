@@ -14,10 +14,9 @@ import { Game } from '../../shared/models/games.interfaces';
 import { MainInterface } from '../../shared/models/main.interfaces';
 import { NgClass } from '@angular/common';
 import { CardComponent } from '../../shared/components/card/card.component';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Store } from '@ngxs/store';
 import { setLoaderStatusAction } from '../../store/action/loader/loader.actions';
-import { finalize } from 'rxjs';
+import { finalize, take } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -27,16 +26,19 @@ import { finalize } from 'rxjs';
   standalone: true,
 })
 export class HomeComponent implements OnInit {
+
   private store = inject(Store);
   private gamesService = inject(GamesService);
   private injector = inject(Injector);
-  private destroyRef = inject(DestroyRef);
 
   games = signal<MainInterface<Game> | null>(null);
+  defaultGamesArr = signal<MainInterface<Game> | null>(null);
 
   activeGrid: boolean = true;
   activeCollomn: boolean = false;
   showAndHideDesign: boolean = true;
+  firstYearDay = new Date(new Date().getFullYear(), 0, 1).toISOString().split('T')[0];
+  lastYearDay = new Date(new Date().getFullYear(), 11, 31).toISOString().split('T')[0];
 
   @HostListener('window:resize', ['$event'])
   onResize(event: Event) {
@@ -46,26 +48,27 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.showAndHideDesign = window.innerWidth > 1024;
     runInInjectionContext(this.injector, () => {
+      this.defaultGamesArr.set(this.gamesService.homeGames())
       effect(() => {
         this.games.set(this.gamesService.homeGames());
       });
     });
   }
   getGenreForRequest(genre: string) {
-    this.store.dispatch(new setLoaderStatusAction(true));
+   this.store.dispatch(new setLoaderStatusAction(true));
     this.gamesService
-      .getGamesByGenres(1, genre)
+      .getGames(1, genre)
       .pipe(
-        takeUntilDestroyed(this.destroyRef),
+        take(1),
         finalize(() => this.store.dispatch(new setLoaderStatusAction(false)))
       )
       .subscribe((gamesGenres) => {
-        this.games.set(gamesGenres);
+       this.gamesService.homeGames.set(gamesGenres)
       });
   }
 
   returnToDefault() {
-    this.games.set(this.gamesService.homeGames());
+    this.gamesService.homeGames.set(this.defaultGamesArr())
   }
 
   activeGridButton() {

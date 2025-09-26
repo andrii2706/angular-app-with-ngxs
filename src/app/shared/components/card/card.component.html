@@ -27,7 +27,7 @@
       <h4>Genres:</h4>
       <div class="[&>button:nth-child(n+5)]:mt-2">
         @for (item of game()?.genres; track $index) {
-          <button class="badge badge-outline mr-2 cursor-pointer" (click)="genres(item.slug)">
+          <button class="badge badge-outline mr-2 cursor-pointer" (click)="genres(item.id.toString())">
             {{ item.name }}
           </button>
         }
