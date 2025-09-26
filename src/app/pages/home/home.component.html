@@ -86,7 +86,11 @@
     }"
   >
     @for (item of games()?.results; track $index) {
-      <app-card [changeStyle]="activeCollomn" [game]="item"></app-card>
+      <app-card
+        [changeStyle]="activeCollomn"
+        [game]="item"
+        (genreInfo)="getGenreForRequest($event)"
+      ></app-card>
     }
   </div>
 } @else {

@@ -63,6 +63,18 @@ export class GamesService {
     });
   }
 
+  getGamesByGenres(page: number, genres: string): Observable<MainInterface<Game>> {
+    const params = new HttpParams({
+      fromObject: {
+         page,
+        key: this.apiKey,
+      },
+    });
+    return this.httpClient.get<MainInterface<Game>>(`${this.url}games`, {
+      params,
+    });
+  }
+
   getGameMovieById(id: string): Observable<any> {
     const paramsForGameBtId = new HttpParams({
       fromObject: {

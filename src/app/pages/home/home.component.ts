@@ -1,5 +1,6 @@
 import {
   Component,
+  DestroyRef,
   effect,
   HostListener,
   inject,
@@ -13,6 +14,10 @@ import { Game } from '../../shared/models/games.interfaces';
 import { MainInterface } from '../../shared/models/main.interfaces';
 import { NgClass } from '@angular/common';
 import { CardComponent } from '../../shared/components/card/card.component';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Store } from '@ngxs/store';
+import { setLoaderStatusAction } from '../../store/action/loader/loader.actions';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -22,8 +27,10 @@ import { CardComponent } from '../../shared/components/card/card.component';
   standalone: true,
 })
 export class HomeComponent implements OnInit {
+  private store = inject(Store);
   private gamesService = inject(GamesService);
   private injector = inject(Injector);
+  private destroyRef = inject(DestroyRef);
 
   games = signal<MainInterface<Game> | null>(null);
 
@@ -43,6 +50,22 @@ export class HomeComponent implements OnInit {
         this.games.set(this.gamesService.homeGames());
       });
     });
+  }
+  getGenreForRequest(genre: string) {
+    this.store.dispatch(new setLoaderStatusAction(true));
+    this.gamesService
+      .getGamesByGenres(1, genre)
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        finalize(() => this.store.dispatch(new setLoaderStatusAction(false)))
+      )
+      .subscribe((gamesGenres) => {
+        this.games.set(gamesGenres);
+      });
+  }
+
+  returnToDefault() {
+    this.games.set(this.gamesService.homeGames());
   }
 
   activeGridButton() {

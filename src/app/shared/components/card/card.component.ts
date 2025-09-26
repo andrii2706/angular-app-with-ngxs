@@ -1,10 +1,9 @@
-import { Component, input, OnInit, computed, inject } from '@angular/core';
+import { Component, input, OnInit, computed, inject, output } from '@angular/core';
 import { Game } from '../../models/games.interfaces';
 import { DatePipe, NgClass } from '@angular/common';
 import { IconPipe } from '../../pipes/icon.pipe';
 import { LucideAngularModule } from 'lucide-angular';
 import { Store } from '@ngxs/store';
-import { setSnackbarSuccessShowAction } from '../../../store/action/snackbar/snackbar.actions';
 
 @Component({
   selector: 'app-card',
@@ -14,17 +13,14 @@ import { setSnackbarSuccessShowAction } from '../../../store/action/snackbar/sna
   styleUrl: './card.component.scss',
 })
 export class CardComponent implements OnInit {
-  private store = inject(Store);
   game = input<Game>();
   changeStyle = input<boolean>();
   platforms = computed(() => this.game()?.platforms ?? []);
+  genreInfo = output<string>();
 
   ngOnInit() {}
 
-  genres() {
-    this.store.dispatch(new setSnackbarSuccessShowAction(true, 'You Are Loggined Success fully'));
-    setTimeout(() => {
-      // this.store.dispatch(new setSnackbarSuccessShowAction(false, ''));
-    }, 3000);
+  genres(genre: string) {
+    this.genreInfo.emit(genre);
   }
 }

@@ -1,5 +1,5 @@
 <div
-  class="card group bg-gray-600 shadow-sm transition-all duration-300 hover:z-30 hover:w-[450px]"
+  class="card group bg-gray-600 transition-all duration-300 hover:z-30 hover:w-[400px] hover:shadow-xl hover:shadow-gray-600"
   [ngClass]="{ 'md:w-[500px] xl:w-[700px]': changeStyle(), 'w-96': !changeStyle() }"
 >
   <figure>
@@ -14,9 +14,11 @@
 
     <h2 class="card-title">
       {{ game()?.name }}
-      <div class="badge badge-neutral">
-        {{ game()?.metacritic }}
-      </div>
+      @if (game()?.metacritic) {
+        <div class="badge badge-neutral">
+          {{ game()?.metacritic }}
+        </div>
+      }
     </h2>
 
     <div class="divider my-1"></div>
@@ -25,7 +27,7 @@
       <h4>Genres:</h4>
       <div class="[&>button:nth-child(n+5)]:mt-2">
         @for (item of game()?.genres; track $index) {
-          <button class="badge badge-outline mr-2 cursor-pointer" (click)="genres()">
+          <button class="badge badge-outline mr-2 cursor-pointer" (click)="genres(item.slug)">
             {{ item.name }}
           </button>
         }
