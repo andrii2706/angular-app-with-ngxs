@@ -32,7 +32,6 @@ export class HomeComponent implements OnInit {
   private injector = inject(Injector);
 
   games = signal<MainInterface<Game> | null>(null);
-  defaultGamesArr = signal<MainInterface<Game> | null>(null);
 
   activeGrid: boolean = true;
   activeCollomn: boolean = false;
@@ -48,7 +47,6 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.showAndHideDesign = window.innerWidth > 1024;
     runInInjectionContext(this.injector, () => {
-      this.defaultGamesArr.set(this.gamesService.homeGames())
       effect(() => {
         this.games.set(this.gamesService.homeGames());
       });
@@ -68,7 +66,7 @@ export class HomeComponent implements OnInit {
   }
 
   returnToDefault() {
-    this.gamesService.homeGames.set(this.defaultGamesArr())
+    this.gamesService.homeGames.set(this.gamesService.defaultGames())
   }
 
   activeGridButton() {

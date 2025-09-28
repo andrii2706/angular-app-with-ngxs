@@ -16,6 +16,7 @@ export class GamesService {
 
   // signals
   homeGames = signal<MainInterface<Game> | null>(null);
+  defaultGames = signal<MainInterface<Game> | null>(null);
   games = signal<MainInterface<Game> | null>(null);
   gameById = signal<Game | null>(null);
 

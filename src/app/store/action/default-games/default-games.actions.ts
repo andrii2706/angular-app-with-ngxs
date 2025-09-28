@@ -9,3 +9,9 @@ export class DefaultHomeGamesAction {
   static readonly type = '[Default Home Games] Add item';
   constructor(readonly resultsGames: MainInterface<Game>) {}
 }
+
+
+export class addGameToWishList{
+  static readonly type = '[Add To Wish List] Add Game to Wish List';
+  constructor(readonly game: Game){}
+}

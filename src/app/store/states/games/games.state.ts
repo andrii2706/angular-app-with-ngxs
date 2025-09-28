@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { State, Selector } from '@ngxs/store';
+import { State, Selector, Action } from '@ngxs/store';
 
 export interface GamesStateModel {
   items: string[];
@@ -17,4 +17,8 @@ export class GamesState {
   static getState(state: GamesStateModel) {
     return state;
   }
+
+  @Action()
+
+
 }

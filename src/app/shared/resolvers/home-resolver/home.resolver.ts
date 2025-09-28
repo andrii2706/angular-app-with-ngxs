@@ -21,7 +21,7 @@ export const homeResolver: ResolveFn<MainInterface<Game>> = (route, state) => {
   return gamesService.getLastReleasedGames(page, `${firstYearDay},${lastYearDay}`).pipe(
     tap((games) => {
       gamesService.homeGames.set(games);
-
+      gamesService.defaultGames.set(games);
     }),
     finalize(() => store.dispatch(new setLoaderStatusAction(false))),
     takeUntilDestroyed(destroyRef)
