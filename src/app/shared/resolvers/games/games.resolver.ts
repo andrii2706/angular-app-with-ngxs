@@ -19,5 +19,5 @@ export const gamesResolver: ResolveFn<MainInterface<Game>> = (route, state) => {
     }),
     finalize(() => store.dispatch(new setLoaderStatusAction(false))),
     takeUntilDestroyed(destroyRef)
-  )
+  );
 };

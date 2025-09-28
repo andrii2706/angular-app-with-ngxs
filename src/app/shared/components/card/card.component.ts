@@ -13,8 +13,7 @@ import { Router } from '@angular/router';
   styleUrl: './card.component.scss',
 })
 export class CardComponent implements OnInit {
-
-  private route = inject(Router)
+  private route = inject(Router);
 
   game = input<Game>();
   changeStyle = input<boolean>();
@@ -27,13 +26,11 @@ export class CardComponent implements OnInit {
     this.genreInfo.emit(genre);
   }
 
-  goToDetails(id: number | undefined){
-    if(id)
-    this.route.navigate([`/games/${id}`]);
+  goToDetails(id: number | undefined) {
+    if (id) this.route.navigate([`/games/${id}`]);
   }
 
-  addToWishList(game: Game | undefined){
+  addToWishList(game: Game | undefined) {
     console.log(game);
   }
-
 }

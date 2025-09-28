@@ -17,8 +17,4 @@ export class GamesState {
   static getState(state: GamesStateModel) {
     return state;
   }
-
-  @Action()
-
-
 }

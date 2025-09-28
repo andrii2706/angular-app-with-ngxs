@@ -26,7 +26,6 @@ import { finalize, take } from 'rxjs';
   standalone: true,
 })
 export class HomeComponent implements OnInit {
-
   private store = inject(Store);
   private gamesService = inject(GamesService);
   private injector = inject(Injector);
@@ -53,7 +52,7 @@ export class HomeComponent implements OnInit {
     });
   }
   getGenreForRequest(genre: string) {
-   this.store.dispatch(new setLoaderStatusAction(true));
+    this.store.dispatch(new setLoaderStatusAction(true));
     this.gamesService
       .getGames(1, genre)
       .pipe(
@@ -61,12 +60,12 @@ export class HomeComponent implements OnInit {
         finalize(() => this.store.dispatch(new setLoaderStatusAction(false)))
       )
       .subscribe((gamesGenres) => {
-       this.gamesService.homeGames.set(gamesGenres)
+        this.gamesService.homeGames.set(gamesGenres);
       });
   }
 
   returnToDefault() {
-    this.gamesService.homeGames.set(this.gamesService.defaultGames())
+    this.gamesService.homeGames.set(this.gamesService.defaultGames());
   }
 
   activeGridButton() {

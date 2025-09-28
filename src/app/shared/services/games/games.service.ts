@@ -22,7 +22,7 @@ export class GamesService {
 
   constructor() {}
 
-  getGames(page: number,  genres:string): Observable<MainInterface<Game>> {
+  getGames(page: number, genres: string): Observable<MainInterface<Game>> {
     const paramsForGames = new HttpParams({
       fromObject: {
         page,
@@ -46,19 +46,16 @@ export class GamesService {
     });
   }
 
-  getLastReleasedGames(
-    page: number,
-    dates: string,
-  ): Observable<MainInterface<Game>> {
+  getLastReleasedGames(page: number, dates: string): Observable<MainInterface<Game>> {
     const query = (dates: string) => {
-     return new HttpParams({
+      return new HttpParams({
         fromObject: {
           key: '85d9905e7cd7443c8983e54b4733abf5',
           page,
           dates: dates,
         },
       });
-    }
+    };
     return this.httpClient.get<MainInterface<Game>>(`/api/games`, {
       params: query(dates),
     });
