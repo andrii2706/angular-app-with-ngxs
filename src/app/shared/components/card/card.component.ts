@@ -3,7 +3,7 @@ import { Game } from '../../models/games.interfaces';
 import { DatePipe, NgClass } from '@angular/common';
 import { IconPipe } from '../../pipes/icon.pipe';
 import { LucideAngularModule } from 'lucide-angular';
-import { Store } from '@ngxs/store';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-card',
@@ -13,6 +13,8 @@ import { Store } from '@ngxs/store';
   styleUrl: './card.component.scss',
 })
 export class CardComponent implements OnInit {
+  private route = inject(Router);
+
   game = input<Game>();
   changeStyle = input<boolean>();
   platforms = computed(() => this.game()?.platforms ?? []);
@@ -22,5 +24,13 @@ export class CardComponent implements OnInit {
 
   genres(genre: string) {
     this.genreInfo.emit(genre);
+  }
+
+  goToDetails(id: number | undefined) {
+    if (id) this.route.navigate([`/games/${id}`]);
+  }
+
+  addToWishList(game: Game | undefined) {
+    console.log(game);
   }
 }

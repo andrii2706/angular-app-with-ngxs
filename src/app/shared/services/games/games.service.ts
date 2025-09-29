@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environment/environment';
@@ -10,26 +10,27 @@ import { MainInterface } from '../../models/main.interfaces';
 })
 export class GamesService {
   //api properties
-  private url = environment.apiUrl;
   private apiKey = environment.apiKey;
   // dependecy injection
   private httpClient = inject(HttpClient);
 
   // signals
   homeGames = signal<MainInterface<Game> | null>(null);
+  defaultGames = signal<MainInterface<Game> | null>(null);
   games = signal<MainInterface<Game> | null>(null);
   gameById = signal<Game | null>(null);
 
   constructor() {}
 
-  getGames(page: number): Observable<MainInterface<Game>> {
+  getGames(page: number, genres: string): Observable<MainInterface<Game>> {
     const paramsForGames = new HttpParams({
       fromObject: {
         page,
-        key: this.apiKey,
+        genres,
+        key: '85d9905e7cd7443c8983e54b4733abf5',
       },
     });
-    return this.httpClient.get<MainInterface<Game>>(`${this.url}games`, {
+    return this.httpClient.get<MainInterface<Game>>(`/api/games`, {
       params: paramsForGames,
     });
   }
@@ -40,38 +41,23 @@ export class GamesService {
         key: this.apiKey,
       },
     });
-    return this.httpClient.get<GameDetails>(`${this.url}games/${id}`, {
+    return this.httpClient.get<GameDetails>(`/api/games/${id}`, {
       params: paramsForGameBtId,
     });
   }
 
-  getLastReleasedGames(
-    page: number,
-    dates: string,
-    ordering: string = ''
-  ): Observable<MainInterface<Game>> {
-    const query = (dates: string) =>
-      new HttpParams({
+  getLastReleasedGames(page: number, dates: string): Observable<MainInterface<Game>> {
+    const query = (dates: string) => {
+      return new HttpParams({
         fromObject: {
-          key: this.apiKey,
+          key: '85d9905e7cd7443c8983e54b4733abf5',
           page,
           dates: dates,
         },
       });
-    return this.httpClient.get<MainInterface<Game>>(`${this.url}games`, {
+    };
+    return this.httpClient.get<MainInterface<Game>>(`/api/games`, {
       params: query(dates),
-    });
-  }
-
-  getGamesByGenres(page: number, genres: string): Observable<MainInterface<Game>> {
-    const params = new HttpParams({
-      fromObject: {
-        page,
-        key: this.apiKey,
-      },
-    });
-    return this.httpClient.get<MainInterface<Game>>(`${this.url}games`, {
-      params,
     });
   }
 
@@ -81,7 +67,7 @@ export class GamesService {
         key: this.apiKey,
       },
     });
-    return this.httpClient.get<any>(`${this.url}games/${id}/movies`, {
+    return this.httpClient.get<any>(`/api/games/${id}/movies`, {
       params: paramsForGameBtId,
     });
   }

@@ -1,6 +1,7 @@
 @if (games()?.results?.length) {
   <div class="flex items-center justify-between">
     <h1 class="text-3xl">Games list</h1>
+    <button class="btn btn-soft" (click)="returnToDefault()">Return to Default List</button>
     @if (showAndHideDesign) {
       <div>
         <span class="text-white opacity-50">Display options:</span>

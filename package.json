@@ -22,7 +22,6 @@
     "@angular/platform-browser-dynamic": "^19.2.0",
     "@angular/platform-server": "^19.2.0",
     "@angular/router": "^19.2.0",
-    "@angular/ssr": "^19.2.1",
     "@ngxs/devtools-plugin": "19.0.0",
     "@ngxs/form-plugin": "19.0.0",
     "@ngxs/hmr-plugin": "19.0.0",

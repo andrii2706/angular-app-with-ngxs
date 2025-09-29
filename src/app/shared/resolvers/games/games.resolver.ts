@@ -3,7 +3,7 @@ import { Game } from '../../models/games.interfaces';
 import { DestroyRef, inject } from '@angular/core';
 import { GamesService } from '../../services/games/games.service';
 import { Store } from '@ngxs/store';
-import { finalize, tap } from 'rxjs';
+import { finalize, map, tap } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { setLoaderStatusAction } from '../../../store/action/loader/loader.actions';
 import { MainInterface } from '../../models/main.interfaces';
@@ -13,7 +13,7 @@ export const gamesResolver: ResolveFn<MainInterface<Game>> = (route, state) => {
   const gamesService = inject(GamesService);
   const destroyRef = inject(DestroyRef);
 
-  return gamesService.getGames(1).pipe(
+  return gamesService.getGames(1, '').pipe(
     tap((games) => {
       gamesService.games.set(games);
     }),
