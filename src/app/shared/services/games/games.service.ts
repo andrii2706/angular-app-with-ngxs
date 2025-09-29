@@ -66,7 +66,7 @@ export class GamesService {
   getGamesByGenres(page: number, genres: string): Observable<MainInterface<Game>> {
     const params = new HttpParams({
       fromObject: {
-         page,
+        page,
         key: this.apiKey,
       },
     });
