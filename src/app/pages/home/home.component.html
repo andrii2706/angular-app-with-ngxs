@@ -86,7 +86,7 @@
       'grid-cols-1': activeCollomn,
     }"
   >
-    @for (item of games()?.results; track $index) {
+    @for (item of gamesList() | paginate: { itemsPerPage: 25, currentPage: page, totalItems: games()?.count} ; track $index) {
       <app-card
         [changeStyle]="activeCollomn"
         [game]="item"
@@ -94,8 +94,14 @@
       ></app-card>
     }
   </div>
+   <div class="flex justify-center items-center mt-[50px]">
+       <pagination-controls
+				class="pagination"
+				(pageChange)="navigateTo($event)"></pagination-controls>
+    </div>
 } @else {
   <div class="flex items-center justify-center">
     <h2 class="text-xl">No Games found</h2>
   </div>
+
 }

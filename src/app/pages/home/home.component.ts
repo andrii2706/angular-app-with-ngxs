@@ -1,6 +1,7 @@
+import { NgxPaginationModule } from 'ngx-pagination';
 import {
   Component,
-  DestroyRef,
+  computed,
   effect,
   HostListener,
   inject,
@@ -17,10 +18,12 @@ import { CardComponent } from '../../shared/components/card/card.component';
 import { Store } from '@ngxs/store';
 import { setLoaderStatusAction } from '../../store/action/loader/loader.actions';
 import { finalize, take } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+
 
 @Component({
   selector: 'app-home',
-  imports: [NgClass, CardComponent],
+  imports: [NgClass, CardComponent, NgxPaginationModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   standalone: true,
@@ -31,12 +34,14 @@ export class HomeComponent implements OnInit {
   private injector = inject(Injector);
 
   games = signal<MainInterface<Game> | null>(null);
+  gamesList = computed(() => this.games()?.results ?? [])
 
   activeGrid: boolean = true;
   activeCollomn: boolean = false;
   showAndHideDesign: boolean = true;
   firstYearDay = new Date(new Date().getFullYear(), 0, 1).toISOString().split('T')[0];
   lastYearDay = new Date(new Date().getFullYear(), 11, 31).toISOString().split('T')[0];
+  page: number = 1;
 
   @HostListener('window:resize', ['$event'])
   onResize(event: Event) {
@@ -63,6 +68,27 @@ export class HomeComponent implements OnInit {
         this.gamesService.homeGames.set(gamesGenres);
       });
   }
+  getNewGames(page: number) {
+		const firstYearDay = this.firstYearDay
+		const lastYearDay = this.lastYearDay
+		const dates = `${firstYearDay},${lastYearDay}`;
+		this.gamesService
+			.getLastReleasedGames(page, dates)
+			.pipe(
+				takeUntilDestroyed(),
+				finalize(() => this.store.dispatch(new setLoaderStatusAction(false)))
+			)
+			.subscribe(
+				games => {
+					this.gamesService.homeGames.set(games)
+				},
+			);
+	}
+
+  navigateTo(PageNumber: number) {
+		this.page = PageNumber;
+		this.getNewGames(PageNumber);
+	}
 
   returnToDefault() {
     this.gamesService.homeGames.set(this.gamesService.defaultGames());

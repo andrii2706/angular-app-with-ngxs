@@ -4,3 +4,25 @@
 .app_container {
   @apply sm:p-5 lg:p-20;
 }
+
+.pagination .ngx-pagination .current {
+	border-radius: 15px;
+  @apply bg-gray-600 text-white;
+}
+
+.pagination .ngx-pagination {
+	font-size: 15px;
+
+	li {
+		margin-right: 10px;
+	}
+
+	a {
+		@apply text-white;
+	}
+
+	li > a:hover {
+		border-radius: 15px;
+    @apply bg-gray-600;
+	}
+}
