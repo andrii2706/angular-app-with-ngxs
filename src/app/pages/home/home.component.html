@@ -86,23 +86,24 @@
       'grid-cols-1': activeCollomn,
     }"
   >
-    @for (item of gamesList() | paginate: { itemsPerPage: 25, currentPage: page, totalItems: games()?.count} ; track $index) {
+    @for (
+      item of gamesList()
+        | paginate: { itemsPerPage: 25, currentPage: page, totalItems: games()?.count };
+      track $index
+    ) {
       <app-card
-      [skeleton]="cardSkeleton"
+        [skeleton]="cardSkeleton"
         [changeStyle]="activeCollomn"
         [game]="item"
         (genreInfo)="getGenreForRequest($event)"
       ></app-card>
     }
   </div>
-   <div class="flex justify-center items-center mt-[50px]">
-       <pagination-controls
-				class="pagination"
-				(pageChange)="navigateTo($event)"></pagination-controls>
-    </div>
+  <div class="mt-[50px] flex items-center justify-center">
+    <pagination-controls class="pagination" (pageChange)="navigateTo($event)"></pagination-controls>
+  </div>
 } @else {
   <div class="flex items-center justify-center">
     <h2 class="text-xl">No Games found</h2>
   </div>
-
 }

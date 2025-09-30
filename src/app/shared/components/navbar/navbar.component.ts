@@ -5,10 +5,11 @@ import { LucideAngularModule } from 'lucide-angular';
 import { AuthService } from '../../services/auth/auth.service';
 import { Store } from '@ngxs/store';
 import { setLoaderStatusAction } from '../../../store/action/loader/loader.actions';
+import { FilterComponent } from '../filter/filter.component';
 
 @Component({
   selector: 'app-navbar',
-  imports: [CommonModule, RouterModule, LucideAngularModule],
+  imports: [CommonModule, RouterModule, LucideAngularModule, FilterComponent],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
   standalone: true,
@@ -19,7 +20,7 @@ export class NavbarComponent {
   private store = inject(Store);
 
   showMenuClick: boolean = false;
-  showFilterProp: boolean = true;
+  showFilterProp: boolean = false;
 
   showFilter() {
     this.showFilterProp = !this.showFilterProp;

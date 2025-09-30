@@ -21,7 +21,6 @@ import { setLoaderStatusAction } from '../../store/action/loader/loader.actions'
 import { debounceTime, finalize, take } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
-
 @Component({
   selector: 'app-home',
   imports: [NgClass, CardComponent, NgxPaginationModule],
@@ -36,7 +35,7 @@ export class HomeComponent implements OnInit {
   private destroyRed = inject(DestroyRef);
 
   games = signal<MainInterface<Game> | null>(null);
-  gamesList = computed(() => this.games()?.results ?? [])
+  gamesList = computed(() => this.games()?.results ?? []);
 
   activeGrid: boolean = true;
   activeCollomn: boolean = false;
@@ -72,28 +71,26 @@ export class HomeComponent implements OnInit {
       });
   }
   getNewGames(page: number) {
-    this.cardSkeleton = true
-		const firstYearDay = this.firstYearDay
-		const lastYearDay = this.lastYearDay
-		const dates = `${firstYearDay},${lastYearDay}`;
-		this.gamesService
-			.getLastReleasedGames(page, dates)
-			.pipe(
+    this.cardSkeleton = true;
+    const firstYearDay = this.firstYearDay;
+    const lastYearDay = this.lastYearDay;
+    const dates = `${firstYearDay},${lastYearDay}`;
+    this.gamesService
+      .getLastReleasedGames(page, dates)
+      .pipe(
         debounceTime(800),
-				takeUntilDestroyed(this.destroyRed),
-				finalize(() => this.cardSkeleton = false)
-			)
-			.subscribe(
-				games => {
-					this.gamesService.homeGames.set(games)
-				},
-			);
-	}
+        takeUntilDestroyed(this.destroyRed),
+        finalize(() => (this.cardSkeleton = false))
+      )
+      .subscribe((games) => {
+        this.gamesService.homeGames.set(games);
+      });
+  }
 
   navigateTo(PageNumber: number) {
-		this.page = PageNumber;
-		this.getNewGames(PageNumber);
-	}
+    this.page = PageNumber;
+    this.getNewGames(PageNumber);
+  }
 
   returnToDefault() {
     this.gamesService.homeGames.set(this.gamesService.defaultGames());

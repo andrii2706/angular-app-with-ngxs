@@ -46,6 +46,9 @@ import {
   Star,
   User,
   Search,
+  Trash2,
+  Trash,
+  Funnel,
 } from 'lucide-angular';
 import { SnackbarErrorState, SnackbarSuccessState } from './store/states/snackbar/snackbar.state';
 
@@ -95,6 +98,9 @@ export const appConfig: ApplicationConfig = {
         Plus,
         Star,
         User,
+        Trash2,
+        Trash,
+        Funnel,
         Settings,
         Search,
       })

@@ -56,9 +56,15 @@
   </div>
 </div>
 
-<div class="bg-base-100 collapse" [class.hidden]="showFilterProp">
-  <div class="collapse-title">
+<div
+  class="overflow-hidden bg-gray-600 transition-all duration-500"
+  [class.max-h-0]="showFilterProp"
+  [class.max-h-96]="!showFilterProp"
+  [class.opacity-0]="showFilterProp"
+  [class.opacity-100]="!showFilterProp"
+>
+  <div class="collapse-title p-4">
     <h2 class="text-xl font-medium">Filter games</h2>
+    <app-filter></app-filter>
   </div>
-  <div class="collapse-content">Filter content</div>
 </div>

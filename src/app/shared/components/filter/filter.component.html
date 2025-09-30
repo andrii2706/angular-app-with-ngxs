@@ -1,1 +1,27 @@
-<p>filter works!</p>
+<form class="flex flex-col items-center justify-center">
+  <input type="text" placeholder="Type here" class="input" />
+  <div class="mt-5 flex w-full items-center justify-start">
+    <select class="select mx-5" name="ordering" id="">
+      <option disabled selected>Pick a Ordering</option>
+    </select>
+    <select class="select" name="metacritic" id="">
+      <option disabled selected>Pick a Metacritic</option>
+    </select>
+    <select class="select mx-5" name="platforms" id="">
+      <option disabled selected>Pick a Platform</option>
+    </select>
+    <select class="select" name="developers" id="">
+      <option disabled selected>Pick a Developers</option>
+    </select>
+    <select class="select mx-5" name="creators" id="">
+      <option disabled selected>Pick a Creator</option>
+    </select>
+    <select class="select" name="tags" id="">
+      <option disabled selected>Pick a Tags</option>
+    </select>
+  </div>
+  <div>
+    <button class="btn btn-soft">Filter Games <lucide-angular name="funnel"></lucide-angular></button>
+    <button class="btn btn-soft btn-square"><lucide-angular name="trash-2" class="h-[20px] w-[20px]"></lucide-angular></button>
+  </div>
+</form>

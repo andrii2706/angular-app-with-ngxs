@@ -2,93 +2,90 @@
   class="card group bg-gray-600 transition-all duration-300 hover:z-30 hover:w-[400px] hover:shadow-xl hover:shadow-gray-600"
   [ngClass]="{ 'md:w-[500px] xl:w-[700px]': changeStyle(), 'w-96': !changeStyle() }"
 >
-  @if(skeleton()){
+  @if (skeleton()) {
     <figure>
       <div class="skeleton h-[216px] w-full"></div>
     </figure>
 
     <div class="card-body">
-          <h2 class="card-title"><span class="skeleton h-[15px] w-full"></span></h2>
-    <div class="divider my-1"></div>
+      <h2 class="card-title"><span class="skeleton h-[15px] w-full"></span></h2>
+      <div class="divider my-1"></div>
 
-    <div class="card-actions flex w-full items-center justify-between">
-      <h4><span class="skeleton h-[20px] w-full"></span></h4>
-       <div class="skeleton h-[20px] w-full"></div>
-    </div>
+      <div class="card-actions flex w-full items-center justify-between">
+        <h4><span class="skeleton h-[20px] w-full"></span></h4>
+        <div class="skeleton h-[20px] w-full"></div>
+      </div>
 
-    <div class="divider my-1"></div>
+      <div class="divider my-1"></div>
 
-    <div class="flex w-full items-center justify-between">
-      <h4><span class="skeleton h-[20px] w-full"></span></h4>
-      <span class="skeleton h-[20px] w-full"></span>
-    </div>
-
-    </div>
-
-  }@else{
-  <figure>
-
-    <img [src]="game()?.background_image" alt="Shoes" />
-  </figure>
-
-  <div class="card-body">
-    <div
-      class="mx-2 flex h-[40px] items-center justify-start"
-      [innerHTML]="platforms() | icon"
-    ></div>
-
-    <h2 class="card-title">
-      {{ game()?.name }}
-      @if (game()?.metacritic) {
-        <div class="badge badge-neutral">
-          {{ game()?.metacritic }}
-        </div>
-      }
-    </h2>
-
-    <div class="divider my-1"></div>
-
-    <div class="card-actions flex w-full items-center justify-between">
-      <h4>Genres:</h4>
-      <div class="[&>button:nth-child(n+5)]:mt-2">
-        @for (item of game()?.genres; track $index) {
-          <button
-            class="badge badge-outline mr-2 cursor-pointer"
-            (click)="genres(item.id.toString())"
-          >
-            {{ item.name }}
-          </button>
-        }
+      <div class="flex w-full items-center justify-between">
+        <h4><span class="skeleton h-[20px] w-full"></span></h4>
+        <span class="skeleton h-[20px] w-full"></span>
       </div>
     </div>
+  } @else {
+    <figure>
+      <img [src]="game()?.background_image" alt="Shoes" />
+    </figure>
 
-    <div class="divider my-1"></div>
+    <div class="card-body">
+      <div
+        class="mx-2 flex h-[40px] items-center justify-start"
+        [innerHTML]="platforms() | icon"
+      ></div>
 
-    <div class="flex w-full items-center justify-between">
-      <h4>Release date:</h4>
-      <span>{{ game()?.released | date: 'mediumDate' }}</span>
-    </div>
+      <h2 class="card-title">
+        {{ game()?.name }}
+        @if (game()?.metacritic) {
+          <div class="badge badge-neutral">
+            {{ game()?.metacritic }}
+          </div>
+        }
+      </h2>
 
-    <div class="divider my-1"></div>
+      <div class="divider my-1"></div>
 
-    <div
-      class="flex h-0 flex-col items-start justify-center overflow-hidden text-white transition-all duration-500 group-hover:h-auto"
-    >
-      <button
-        (click)="goToDetails(game()?.id)"
-        class="mb-2 flex w-full cursor-pointer items-center justify-between rounded-lg bg-gray-800 p-2 text-start opacity-75 transition-all duration-500 hover:text-amber-300"
+      <div class="card-actions flex w-full items-center justify-between">
+        <h4>Genres:</h4>
+        <div class="[&>button:nth-child(n+5)]:mt-2">
+          @for (item of game()?.genres; track $index) {
+            <button
+              class="badge badge-outline mr-2 cursor-pointer"
+              (click)="genres(item.id.toString())"
+            >
+              {{ item.name }}
+            </button>
+          }
+        </div>
+      </div>
+
+      <div class="divider my-1"></div>
+
+      <div class="flex w-full items-center justify-between">
+        <h4>Release date:</h4>
+        <span>{{ game()?.released | date: 'mediumDate' }}</span>
+      </div>
+
+      <div class="divider my-1"></div>
+
+      <div
+        class="flex h-0 flex-col items-start justify-center overflow-hidden text-white transition-all duration-500 group-hover:h-auto"
       >
-        Game Details
-        <lucide-angular name="chevron-right" class="h-[20px] w-[20px]"></lucide-angular>
-      </button>
-      <button
-        (click)="addToWishList(game())"
-        class="flex w-full cursor-pointer items-center justify-between rounded-lg bg-gray-800 p-2 text-start opacity-75 hover:text-amber-300"
-      >
-        Add to Wish list
-        <lucide-angular name="chevron-right" class="h-[20px] w-[20px]"></lucide-angular>
-      </button>
+        <button
+          (click)="goToDetails(game()?.id)"
+          class="mb-2 flex w-full cursor-pointer items-center justify-between rounded-lg bg-gray-800 p-2 text-start opacity-75 transition-all duration-500 hover:text-amber-300"
+        >
+          Game Details
+          <lucide-angular name="chevron-right" class="h-[20px] w-[20px]"></lucide-angular>
+        </button>
+        <button
+          (click)="addToWishList(game())"
+          class="flex w-full cursor-pointer items-center justify-between rounded-lg bg-gray-800 p-2 text-start opacity-75 hover:text-amber-300"
+        >
+          Add to Wish list
+          <lucide-angular name="chevron-right" class="h-[20px] w-[20px]"></lucide-angular>
+        </button>
+      </div>
     </div>
-  </div>
   }
 </div>
