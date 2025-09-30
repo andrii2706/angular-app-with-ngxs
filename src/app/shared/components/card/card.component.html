@@ -2,7 +2,32 @@
   class="card group bg-gray-600 transition-all duration-300 hover:z-30 hover:w-[400px] hover:shadow-xl hover:shadow-gray-600"
   [ngClass]="{ 'md:w-[500px] xl:w-[700px]': changeStyle(), 'w-96': !changeStyle() }"
 >
+  @if(skeleton()){
+    <figure>
+      <div class="skeleton h-[216px] w-full"></div>
+    </figure>
+
+    <div class="card-body">
+          <h2 class="card-title"><span class="skeleton h-[15px] w-full"></span></h2>
+    <div class="divider my-1"></div>
+
+    <div class="card-actions flex w-full items-center justify-between">
+      <h4><span class="skeleton h-[20px] w-full"></span></h4>
+       <div class="skeleton h-[20px] w-full"></div>
+    </div>
+
+    <div class="divider my-1"></div>
+
+    <div class="flex w-full items-center justify-between">
+      <h4><span class="skeleton h-[20px] w-full"></span></h4>
+      <span class="skeleton h-[20px] w-full"></span>
+    </div>
+
+    </div>
+
+  }@else{
   <figure>
+
     <img [src]="game()?.background_image" alt="Shoes" />
   </figure>
 
@@ -65,4 +90,5 @@
       </button>
     </div>
   </div>
+  }
 </div>

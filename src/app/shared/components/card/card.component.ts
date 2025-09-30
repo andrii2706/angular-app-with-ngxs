@@ -17,8 +17,10 @@ export class CardComponent implements OnInit {
 
   game = input<Game>();
   changeStyle = input<boolean>();
-  platforms = computed(() => this.game()?.platforms ?? []);
   genreInfo = output<string>();
+  skeleton = input<boolean>();
+
+  platforms = computed(() => this.game()?.platforms ?? []);
 
   ngOnInit() {}
 

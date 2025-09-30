@@ -88,6 +88,7 @@
   >
     @for (item of gamesList() | paginate: { itemsPerPage: 25, currentPage: page, totalItems: games()?.count} ; track $index) {
       <app-card
+      [skeleton]="cardSkeleton"
         [changeStyle]="activeCollomn"
         [game]="item"
         (genreInfo)="getGenreForRequest($event)"
