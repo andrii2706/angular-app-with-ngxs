@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../../../../environment/environment';
 import { Game, GameDetails } from '../../models/games.interfaces';
 import { MainInterface } from '../../models/main.interfaces';
+import { FilterParams } from '../../models/filter.interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -70,5 +71,23 @@ export class GamesService {
     return this.httpClient.get<any>(`/api/games/${id}/movies`, {
       params: paramsForGameBtId,
     });
+  }
+
+  filterGames(page: number, filterParams: FilterParams): Observable<MainInterface<Game>> {
+    const paramsForFilter = this.getFilterQueryParameter(filterParams);
+    return this.httpClient.get<MainInterface<Game>>(`/api/games?key=${this.apiKey}&page=${page}`, {
+      params: paramsForFilter,
+    });
+  }
+
+  private getFilterQueryParameter(filterParams: FilterParams): HttpParams {
+    return Object.entries(filterParams).reduce<HttpParams>((acc, item) => {
+      const key = item[0];
+      const value = item[1];
+      if (value !== '') {
+        return acc.append(key, value);
+      }
+      return acc;
+    }, new HttpParams());
   }
 }

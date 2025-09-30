@@ -51,6 +51,7 @@ import {
   Funnel,
 } from 'lucide-angular';
 import { SnackbarErrorState, SnackbarSuccessState } from './store/states/snackbar/snackbar.state';
+import { FilterOptionsState } from './store/states/filter-options/filter-options.state';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -59,7 +60,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(),
     provideClientHydration(withEventReplay()),
     provideStore(
-      [LoaderState, SnackbarSuccessState, SnackbarErrorState],
+      [LoaderState, SnackbarSuccessState, SnackbarErrorState, FilterOptionsState],
       withNgxsReduxDevtoolsPlugin(),
       withNgxsFormPlugin()
     ),
