@@ -1,5 +1,5 @@
 export interface FilterParams {
-  search: string;
+  search?: string;
   platforms?: string;
   ordering?: string;
   metacritic?: string;

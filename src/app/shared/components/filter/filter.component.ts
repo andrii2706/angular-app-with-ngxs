@@ -41,10 +41,10 @@ export class FilterComponent implements OnInit {
   tags: Tags[] = tagsFilter;
 
   searchValues = {
-    metacritics: '',
+    metacritic: '',
     developers: '',
     platforms: '',
-    orderBy: '',
+    ordering: '',
     tags: '',
     search: '',
   };
@@ -70,15 +70,23 @@ export class FilterComponent implements OnInit {
   }
 
   clearFilterForm() {
-     this.searchValues = {
-    ...this.searchValues,
-    developers: this.filterForm.value.developers,
-    metacritics: this.filterForm.value.metacritics,
-    platforms: this.filterForm.value.platforms,
-    orderBy: this.filterForm.value.orderBy,
-    tags: this.filterForm.value.tags,
-    search: this.filterForm.value.search,
-  };
+    this.filterForm.patchValue({
+      metacritic: '',
+      developers: '',
+      platforms: '',
+      ordering: '',
+      tags: '',
+      search: '',
+    });
+    this.searchValues = {
+      ...this.searchValues,
+      developers: this.filterForm.value.developers,
+      metacritic: this.filterForm.value.metacritics,
+      platforms: this.filterForm.value.platforms,
+      ordering: this.filterForm.value.orderBy,
+      tags: this.filterForm.value.tags,
+      search: this.searchFilterForm.value.search,
+    };
     this.filterForm.patchValue(this.searchValues);
     this.store.dispatch(new clearFilterOptionsAction(this.searchValues));
   }
@@ -90,15 +98,15 @@ export class FilterComponent implements OnInit {
   }
 
   submitFilterForm() {
-  this.searchValues = {
-    ...this.searchValues,
-    developers: this.filterForm.value.developers,
-    metacritics: this.filterForm.value.metacritics,
-    platforms: this.filterForm.value.platforms,
-    orderBy: this.filterForm.value.orderBy,
-    tags: this.filterForm.value.tags,
-    search: this.filterForm.value.search,
-  };
-  this.store.dispatch(new addFilterOptionsAction(this.searchValues));
-}
+    this.searchValues = {
+      ...this.searchValues,
+      developers: this.filterForm.value.developers,
+      metacritic: this.filterForm.value.metacritics,
+      platforms: this.filterForm.value.platforms,
+      ordering: this.filterForm.value.orderBy,
+      tags: this.filterForm.value.tags,
+      search: this.searchFilterForm.value.search,
+    };
+    this.store.dispatch(new addFilterOptionsAction(this.searchValues));
+  }
 }

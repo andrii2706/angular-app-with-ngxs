@@ -14,12 +14,14 @@ import {
 import { GamesService } from '../../shared/services/games/games.service';
 import { Game } from '../../shared/models/games.interfaces';
 import { MainInterface } from '../../shared/models/main.interfaces';
-import { NgClass } from '@angular/common';
+import { JsonPipe, NgClass } from '@angular/common';
 import { CardComponent } from '../../shared/components/card/card.component';
-import { Store } from '@ngxs/store';
+import { NgxsOnChanges, NgxsSimpleChange, Store } from '@ngxs/store';
 import { setLoaderStatusAction } from '../../store/action/loader/loader.actions';
-import { debounceTime, finalize, take } from 'rxjs';
+import { debounceTime, distinctUntilChanged, finalize, map, take } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { FilterOptionsState } from '../../store/states/filter-options/filter-options.state';
+import { FilterParams } from '../../shared/models/filter.interfaces';
 
 @Component({
   selector: 'app-home',
@@ -36,6 +38,8 @@ export class HomeComponent implements OnInit {
 
   games = signal<MainInterface<Game> | null>(null);
   gamesList = computed(() => this.games()?.results ?? []);
+  filterOptions = signal<FilterParams | null>(null);
+  filterInfo = computed(() => this.filterOptions() ?? this.defaultValue);
 
   activeGrid: boolean = true;
   activeCollomn: boolean = false;
@@ -44,6 +48,14 @@ export class HomeComponent implements OnInit {
   firstYearDay = new Date(new Date().getFullYear(), 0, 1).toISOString().split('T')[0];
   lastYearDay = new Date(new Date().getFullYear(), 11, 31).toISOString().split('T')[0];
   page: number = 1;
+  defaultValue = {
+    search: '',
+    platforms: '',
+    ordering: '',
+    metacritic: '',
+    developers: '',
+    tags: '',
+  };
 
   @HostListener('window:resize', ['$event'])
   onResize(event: Event) {
@@ -56,12 +68,41 @@ export class HomeComponent implements OnInit {
       effect(() => {
         this.games.set(this.gamesService.homeGames());
       });
+      this.store
+        .select(FilterOptionsState.getState)
+        .pipe(
+          distinctUntilChanged((prev, curr) => JSON.stringify(prev) === JSON.stringify(curr)),
+          debounceTime(300),
+          takeUntilDestroyed(this.destroyRed)
+        )
+        .subscribe((filterOptions) => {
+          this.filterOptions.set(filterOptions);
+          if (JSON.stringify(this.filterOptions()) !== JSON.stringify(this.defaultValue)) {
+            this.getFilteredGames();
+          } else {
+            this.getLastReleasedGamesInfo();
+          }
+        });
     });
   }
+
+  getFilteredGames() {
+    this.gamesService
+      .filterGames(1, this.filterInfo())
+      .pipe(
+        debounceTime(800),
+        take(1),
+        finalize(() => (this.cardSkeleton = false))
+      )
+      .subscribe((games) => {
+        this.gamesService.homeGames.set(games);
+      });
+  }
+
   getGenreForRequest(genre: string) {
     this.store.dispatch(new setLoaderStatusAction(true));
     this.gamesService
-      .getGames(1, genre)
+      .getGamesWithGenres(1, genre)
       .pipe(
         take(1),
         finalize(() => this.store.dispatch(new setLoaderStatusAction(false)))
@@ -70,13 +111,22 @@ export class HomeComponent implements OnInit {
         this.gamesService.homeGames.set(gamesGenres);
       });
   }
+
   getNewGames(page: number) {
     this.cardSkeleton = true;
+    if (this.filterOptions() === null || this.filterInfo()) {
+      this.getLastReleasedGamesInfo();
+    } else {
+      this.getFilteredGames();
+    }
+  }
+
+  getLastReleasedGamesInfo() {
     const firstYearDay = this.firstYearDay;
     const lastYearDay = this.lastYearDay;
     const dates = `${firstYearDay},${lastYearDay}`;
     this.gamesService
-      .getLastReleasedGames(page, dates)
+      .getLastReleasedGames(1, dates)
       .pipe(
         debounceTime(800),
         takeUntilDestroyed(this.destroyRed),

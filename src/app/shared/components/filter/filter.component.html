@@ -2,15 +2,11 @@
   <input formControlName="search" type="text" placeholder="Find Games" class="input" />
 </form>
 
-<form class="flex flex-col items-center justify-center" [formGroup]="filterForm" >
+<form class="flex flex-col items-center justify-center" [formGroup]="filterForm">
   <div class="mt-5 flex w-full items-center justify-start">
     <select formControlName="developers" class="select" name="ordering" id="">
       @for (item of developers; track $index) {
-        <option
-          [disabled]="item.slug === 'pick-a-developers'"
-          [selected]="item.slug === 'pick-a-developers'"
-          [value]="item.slug"
-        >
+        <option [disabled]="item.slug === 'pick-a-developers'" [value]="item.slug">
           {{ item.developersName }}
         </option>
       }
@@ -18,44 +14,28 @@
 
     <select formControlName="metacritics" class="select mx-5" name="metacritic" id="">
       @for (item of metacritics; track $index) {
-        <option
-          [disabled]="item.slug === 'pick-a-metacritic'"
-          [selected]="item.slug === 'pick-a-metacritic'"
-          [value]="item.slug"
-        >
+        <option [disabled]="item.slug === 'pick-a-metacritic'" [value]="item.slug">
           {{ item.name }}
         </option>
       }
     </select>
     <select formControlName="platforms" class="select" name="platforms" id="">
       @for (item of platforms; track $index) {
-        <option
-          [disabled]="item.slug === 'pick-a-platform'"
-          [selected]="item.slug === 'pick-a-platform'"
-          [value]="item.slug"
-        >
+        <option [disabled]="item.slug === 'pick-a-platform'" [value]="item.slug">
           {{ item.platformsName }}
         </option>
       }
     </select>
     <select formControlName="orderBy" class="select mx-5" name="developers" id="">
       @for (item of orderByInfos; track $index) {
-        <option
-          [disabled]="item.slug === 'pick-a-ordering'"
-          [selected]="item.slug === 'pick-a-ordering'"
-          [value]="item.slug"
-        >
+        <option [disabled]="item.slug === 'pick-a-ordering'" [value]="item.slug">
           {{ item.name }}
         </option>
       }
     </select>
     <select formControlName="tags" class="select" name="tags" id="">
       @for (item of tags; track $index) {
-        <option
-        [disabled]="item.slug === 'pick-a-tags'"
-        [selected]="item.slug === 'pick-a-tags'"
-        [value]="item.slug"
-        >
+        <option [disabled]="item.slug === 'pick-a-tags'" [value]="item.slug">
           {{ item.name }}
         </option>
       }
@@ -66,11 +46,11 @@
   <button class="btn btn-soft" (click)="submitFilterForm()">
     Filter Games <lucide-angular name="funnel"></lucide-angular>
   </button>
-  <button class="btn btn-soft mx-3" (click)="clearFilterForm()">
+  <button class="btn btn-soft mx-3" (click)="clearSearchForm()">
     Clear Search input
     <lucide-angular name="trash-2" class="ml-3 h-[20px] w-[20px]"></lucide-angular>
   </button>
-  <button class="btn btn-soft" (click)="clearSearchForm()">
+  <button class="btn btn-soft" (click)="clearFilterForm()">
     Clear Filter Form
     <lucide-angular name="trash-2" class="ml-3 h-[20px] w-[20px]"></lucide-angular>
   </button>

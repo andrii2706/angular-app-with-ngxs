@@ -1,1 +1,109 @@
-<p>games works!</p>
+@if (games()?.results?.length) {
+  <div class="flex items-center justify-between">
+    <h1 class="text-3xl">Games list</h1>
+    <button class="btn btn-soft" (click)="returnToDefault()">Return to Default List</button>
+    @if (showAndHideDesign) {
+      <div>
+        <span class="text-white opacity-50">Display options:</span>
+        <button
+          class="btn btn-square mx-3 opacity-40 transition-all hover:opacity-75"
+          [ngClass]="{ 'cursor-default opacity-100 hover:opacity-100': activeGrid }"
+          (click)="activeGridButton()"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            width="56"
+            height="56"
+            viewBox="0 0 56 56"
+          >
+            <defs>
+              <path d="M6 0h44a6 6 0 016 6v44a6 6 0 01-6 6H6a6 6 0 01-6-6V6a6 6 0 016-6z" id="a" />
+            </defs>
+            <g fill="none" fill-rule="evenodd">
+              <mask id="b" fill="#fff"><use xlink:href="#a" /></mask>
+              <use fill="#FFF" opacity=".2" xlink:href="#a" />
+              <g mask="url(#b)" stroke="#FFF">
+                <g transform="translate(8.167 9.333)">
+                  <rect x=".5" y=".5" width="10.667" height="16.5" rx="3" />
+                  <rect x="14.5" y=".5" width="10.667" height="16.5" rx="3" />
+                  <rect x="28.5" y=".5" width="10.667" height="16.5" rx="3" />
+                  <rect x=".5" y="20.333" width="10.667" height="16.5" rx="3" />
+                  <rect x="14.5" y="20.333" width="10.667" height="16.5" rx="3" />
+                  <rect x="28.5" y="20.333" width="10.667" height="16.5" rx="3" />
+                </g>
+              </g>
+            </g>
+          </svg>
+        </button>
+        <button
+          class="btn btn-square opacity-40 transition-all hover:opacity-75"
+          [ngClass]="{ 'cursor-default opacity-100 hover:opacity-100': activeCollomn }"
+          (click)="activeCollomnButton()"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            width="56"
+            height="56"
+            viewBox="0 0 56 56"
+          >
+            <defs>
+              <path d="M6 0h44a6 6 0 016 6v44a6 6 0 01-6 6H6a6 6 0 01-6-6V6a6 6 0 016-6z" id="a" />
+            </defs>
+            <g fill="none" fill-rule="evenodd">
+              <mask id="b" fill="#fff"><use xlink:href="#a" /></mask>
+              <use fill="#FFF" opacity=".2" xlink:href="#a" />
+              <g mask="url(#b)" stroke="#FFF">
+                <rect
+                  x="1"
+                  y=".667"
+                  width="33"
+                  height="29"
+                  rx="4"
+                  transform="translate(10.5 12.833)"
+                />
+                <rect x="1" y=".5" width="33" height="29" rx="4" transform="translate(10.5 -20)" />
+                <rect
+                  x="1"
+                  y="1.833"
+                  width="33"
+                  height="29"
+                  rx="4"
+                  transform="translate(10.5 44.667)"
+                />
+              </g>
+            </g>
+          </svg>
+        </button>
+      </div>
+    }
+  </div>
+  <div
+    class="mt-10 grid justify-items-center gap-10"
+    [ngClass]="{
+      'big-table:grid-cols-2 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4': activeGrid,
+      'grid-cols-1': activeCollomn,
+    }"
+  >
+    @for (
+      item of gamesList()
+        | paginate: { itemsPerPage: 25, currentPage: page, totalItems: games()?.count };
+      track $index
+    ) {
+      <app-card
+        [skeleton]="cardSkeleton"
+        [changeStyle]="activeCollomn"
+        [game]="item"
+        (genreInfo)="getGenreForRequest($event)"
+      ></app-card>
+    }
+  </div>
+  <div class="mt-[50px] flex items-center justify-center">
+    <pagination-controls class="pagination" (pageChange)="navigateTo($event)"></pagination-controls>
+  </div>
+} @else {
+  <div class="flex items-center justify-center">
+    <h2 class="text-xl">No Games found</h2>
+  </div>
+}

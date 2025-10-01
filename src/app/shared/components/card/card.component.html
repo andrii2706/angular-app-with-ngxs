@@ -1,6 +1,9 @@
 <div
-  class="card group bg-gray-600 transition-all duration-300 hover:z-30 hover:w-[400px] hover:shadow-xl hover:shadow-gray-600"
-  [ngClass]="{ 'md:w-[500px] xl:w-[700px]': changeStyle(), 'w-96': !changeStyle() }"
+  class="card group bg-gray-600 transition-all duration-300 hover:shadow-xl hover:shadow-gray-600"
+  [ngClass]="{
+    'hover:z-30 hover:w-[800px] md:w-[500px] xl:w-[700px]': changeStyle(),
+    'w-96 hover:z-30 hover:w-[400px]': !changeStyle(),
+  }"
 >
   @if (skeleton()) {
     <figure>

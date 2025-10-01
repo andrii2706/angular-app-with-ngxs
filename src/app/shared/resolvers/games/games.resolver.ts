@@ -13,9 +13,10 @@ export const gamesResolver: ResolveFn<MainInterface<Game>> = (route, state) => {
   const gamesService = inject(GamesService);
   const destroyRef = inject(DestroyRef);
 
-  return gamesService.getGames(1, '').pipe(
+  return gamesService.getGames(1).pipe(
     tap((games) => {
       gamesService.games.set(games);
+      gamesService.defaultGames.set(games);
     }),
     finalize(() => store.dispatch(new setLoaderStatusAction(false))),
     takeUntilDestroyed(destroyRef)

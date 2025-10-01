@@ -14,7 +14,6 @@ import {
     ordering: '',
     metacritic: '',
     developers: '',
-    creators: '',
     tags: '',
   },
 })

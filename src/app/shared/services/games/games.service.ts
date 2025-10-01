@@ -23,11 +23,23 @@ export class GamesService {
 
   constructor() {}
 
-  getGames(page: number, genres: string): Observable<MainInterface<Game>> {
+  getGames(page: number): Observable<MainInterface<Game>> {
     const paramsForGames = new HttpParams({
       fromObject: {
         page,
-        genres,
+        key: '85d9905e7cd7443c8983e54b4733abf5',
+      },
+    });
+    return this.httpClient.get<MainInterface<Game>>(`/api/games`, {
+      params: paramsForGames,
+    });
+  }
+
+  getGamesWithGenres(page: number, genres?: string): Observable<MainInterface<Game>> {
+    const paramsForGames = new HttpParams({
+      fromObject: {
+        page,
+        genres: genres ? genres : '',
         key: '85d9905e7cd7443c8983e54b4733abf5',
       },
     });
