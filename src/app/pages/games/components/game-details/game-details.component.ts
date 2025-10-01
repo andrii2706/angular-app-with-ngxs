@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-game-details',
@@ -7,4 +7,8 @@ import { Component } from '@angular/core';
   styleUrl: './game-details.component.scss',
   standalone: true,
 })
-export class GameDetailsComponent {}
+export class GameDetailsComponent implements OnInit {
+  ngOnInit(): void {
+    console.log('games details');
+  }
+}
