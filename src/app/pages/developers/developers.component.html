@@ -1,0 +1,20 @@
+@if (developersInfo().length) {
+  <div
+    class="big-table:grid-cols-2 mt-10 grid grid-cols-1 justify-items-center gap-10 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4"
+  >
+    @for (
+      item of developersInfo()
+        | paginate: { itemsPerPage: 25, currentPage: page, totalItems: developers()?.count };
+      track $index
+    ) {
+      <app-developers-cards [skeleton]="cardSkeleton" [developers]="item"></app-developers-cards>
+    }
+  </div>
+  <div class="mt-[50px] flex items-center justify-center">
+    <pagination-controls class="pagination" (pageChange)="navigateTo($event)"></pagination-controls>
+  </div>
+} @else {
+  <div class="flex items-center justify-center">
+    <h2 class="text-xl">No Developers found</h2>
+  </div>
+}
