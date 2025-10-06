@@ -3,6 +3,8 @@ import { State, Selector, StateContext, Action } from '@ngxs/store';
 import { FilterParams } from '../../../shared/models/filter.interfaces';
 import {
   addFilterOptionsAction,
+  btnClearFilterFormStatusAction,
+  btnClearSearchInputStatusAction,
   clearFilterOptionsAction,
 } from '../../action/filter-options/filter-options.actions';
 
@@ -35,4 +37,16 @@ export class FilterOptionsState {
     const filterOptions = action.filterOptions;
     ctx.patchState(filterOptions);
   }
+
+  @Action(btnClearFilterFormStatusAction)
+  setFilterButtonStatus(){
+
+  }
+
+  @Action(btnClearSearchInputStatusAction)
+
+setSearchButtonStatus(){
+
+}
+
 }
