@@ -20,8 +20,16 @@ export class GamesService {
   defaultGames = signal<MainInterface<Game> | null>(null);
   games = signal<MainInterface<Game> | null>(null);
   gameById = signal<GameDetails | null>(null);
+  savedGames = signal<Game[]>([]);
+
+  savedGamesArr: Game[] = [];
 
   constructor() {}
+
+  saveGames(game: Game) {
+    this.savedGamesArr.push(game);
+    this.savedGames.set(this.savedGamesArr);
+  }
 
   getGames(page: number): Observable<MainInterface<Game>> {
     const paramsForGames = new HttpParams({

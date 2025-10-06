@@ -16,6 +16,7 @@ export interface Game {
   slug?: string;
   name: string;
   isBought?: boolean;
+  statusOfGame?: string;
   name_original?: string;
   description?: string;
   released?: string;

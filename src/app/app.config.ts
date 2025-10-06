@@ -52,6 +52,7 @@ import {
 } from 'lucide-angular';
 import { SnackbarErrorState, SnackbarSuccessState } from './store/states/snackbar/snackbar.state';
 import { FilterOptionsState } from './store/states/filter-options/filter-options.state';
+import { GamesStatusState } from './store/states/wish-list-but/wish-list-buy.state';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -60,7 +61,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(),
     provideClientHydration(withEventReplay()),
     provideStore(
-      [LoaderState, SnackbarSuccessState, SnackbarErrorState, FilterOptionsState],
+      [LoaderState, SnackbarSuccessState, SnackbarErrorState, FilterOptionsState, GamesStatusState],
       withNgxsReduxDevtoolsPlugin(),
       withNgxsFormPlugin()
     ),
