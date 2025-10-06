@@ -67,7 +67,6 @@ export class HomeComponent implements OnInit {
     runInInjectionContext(this.injector, () => {
       effect(() => {
         this.games.set(this.gamesService.homeGames());
-        console.log(this.gamesService.homeGames())
       });
       this.store
         .select(FilterOptionsState.getState)

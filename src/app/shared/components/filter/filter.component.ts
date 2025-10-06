@@ -20,6 +20,7 @@ import {
   addFilterOptionsAction,
   clearFilterOptionsAction,
 } from '../../../store/action/filter-options/filter-options.actions';
+import { runInThisContext } from 'node:vm';
 
 @Component({
   selector: 'app-filter',
@@ -71,10 +72,10 @@ export class FilterComponent implements OnInit {
 
   clearFilterForm() {
     this.filterForm.patchValue({
-      metacritic: '',
+      metacritics: '',
       developers: '',
       platforms: '',
-      ordering: '',
+      orderBy: '',
       tags: '',
       search: '',
     });
