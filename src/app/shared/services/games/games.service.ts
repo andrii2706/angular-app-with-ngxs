@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
-import { Observable } from 'rxjs';
+import { tap, Observable, map } from 'rxjs';
 import { environment } from '../../../../environment/environment';
 import { Game, GameDetails } from '../../models/games.interfaces';
 import { MainInterface } from '../../models/main.interfaces';
@@ -23,6 +23,7 @@ export class GamesService {
   savedGames = signal<Game[]>([]);
 
   savedGamesArr: Game[] = [];
+  wishListGames = localStorage.getItem('games');
 
   constructor() {}
 

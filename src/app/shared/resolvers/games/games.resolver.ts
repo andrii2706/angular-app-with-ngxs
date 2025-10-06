@@ -12,6 +12,7 @@ export const gamesResolver: ResolveFn<MainInterface<Game>> = (route, state) => {
   const store = inject(Store);
   const gamesService = inject(GamesService);
   const destroyRef = inject(DestroyRef);
+  const wishListGames = localStorage.getItem('games');
 
   return gamesService.getGames(1).pipe(
     tap((games) => {

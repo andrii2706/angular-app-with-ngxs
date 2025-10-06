@@ -17,11 +17,23 @@ export const homeResolver: ResolveFn<MainInterface<Game>> = (route, state) => {
   const store = inject(Store);
   const gamesService = inject(GamesService);
   const destroyRef = inject(DestroyRef);
+  const wishListGames = localStorage.getItem('games');
 
   return gamesService.getLastReleasedGames(page, `${firstYearDay},${lastYearDay}`).pipe(
     tap((games) => {
-      gamesService.homeGames.set(games);
-      gamesService.defaultGames.set(games);
+      const gamesInfo = JSON.parse(wishListGames || '');
+      const gameId = gamesInfo.map((game: { game: Game; status: string }) => game.game.id);
+      const gamesSaved = games?.results?.map((g) => ({ ...g, isBought: gameId.includes(g.id) }));
+      const homeGames = {
+        count: games.count,
+        next: games.next,
+        previous: games.previous,
+        results: gamesSaved,
+        seo_title: games.seo_title,
+        seo_h1: games.seo_h1,
+      };
+      gamesService.homeGames.set(homeGames);
+      gamesService.defaultGames.set(homeGames);
     }),
     finalize(() => store.dispatch(new setLoaderStatusAction(false))),
     takeUntilDestroyed(destroyRef)

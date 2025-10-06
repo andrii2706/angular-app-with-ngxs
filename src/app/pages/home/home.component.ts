@@ -37,7 +37,7 @@ export class HomeComponent implements OnInit {
   private destroyRed = inject(DestroyRef);
 
   games = signal<MainInterface<Game> | null>(null);
-  gamesList = computed(() => this.games()?.results ?? []);
+  gamesList = computed(() =>  this.games()?.results ?? []);
   filterOptions = signal<FilterParams | null>(null);
   filterInfo = computed(() => this.filterOptions() ?? this.defaultValue);
 
@@ -67,6 +67,7 @@ export class HomeComponent implements OnInit {
     runInInjectionContext(this.injector, () => {
       effect(() => {
         this.games.set(this.gamesService.homeGames());
+        console.log(this.gamesService.homeGames())
       });
       this.store
         .select(FilterOptionsState.getState)
@@ -79,8 +80,6 @@ export class HomeComponent implements OnInit {
           this.filterOptions.set(filterOptions);
           if (JSON.stringify(this.filterOptions()) !== JSON.stringify(this.defaultValue)) {
             this.getFilteredGames();
-          } else {
-            this.getLastReleasedGamesInfo();
           }
         });
     });

@@ -44,10 +44,15 @@ export class GamesStatusState implements NgxsOnInit, NgxsAfterBootstrap, NgxsOnC
   }
 
   ngxsOnInit(ctx: StateContext<GamesStateModel>): void {
-    console.log('[NGXS] GamesState initialized', ctx.getState());
+    console.log('[NGXS] GamesState initialized');
+
     const saved = localStorage.getItem('games');
-    if (saved) {
-      ctx.patchState({ games: JSON.parse(saved) });
+    if (saved?.length) {
+      const games = JSON.parse(saved);
+      ctx.patchState({ games });
+      console.log('[NGXS] Games loaded from localStorage');
+    } else {
+      console.log('[NGXS] No localStorage data found');
     }
   }
 
@@ -58,24 +63,23 @@ export class GamesStatusState implements NgxsOnInit, NgxsAfterBootstrap, NgxsOnC
 
   ngxsOnChanges(change: NgxsSimpleChange<GamesStateModel>): void {
     console.log('[NGXS] GamesState changed', change);
-    localStorage.setItem('games', JSON.stringify(change.currentValue.games));
+    if (change.firstChange) {
+      const games = localStorage.getItem('games');
+      localStorage.setItem('games', JSON.stringify(JSON.parse(games || '')));
+    } else {
+      localStorage.setItem('games', JSON.stringify(change.currentValue.games));
+    }
   }
 
   @Action(AddToWishList)
   addToWishList(ctx: StateContext<GamesStateModel>, { game }: AddToWishList) {
     const state = ctx.getState();
-
-    if (!state.games.find((g) => g.game.id === game.id)) {
-      ctx.patchState({
-        games: [...state.games, { game, status: GamesStatusEnum.WISH_LIST_ADD_STATUS }],
-      });
-    } else {
-      ctx.patchState({
-        games: state.games.map((g) =>
-          g.game.id === game.id ? { ...g, status: GamesStatusEnum.WISH_LIST_ADD_STATUS } : g
-        ),
-      });
-    }
+    ctx.patchState({
+      games: [
+        ...state.games.filter((g) => g.game.id !== game.id),
+        { game, status: GamesStatusEnum.WISH_LIST_ADD_STATUS },
+      ],
+    });
   }
 
   @Action(RemoveFromWishList)

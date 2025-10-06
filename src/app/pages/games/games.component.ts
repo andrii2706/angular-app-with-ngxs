@@ -11,7 +11,7 @@ import {
   signal,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { debounceTime, distinctUntilChanged, finalize, take } from 'rxjs';
+import { debounceTime, distinctUntilChanged, finalize, take, map } from 'rxjs';
 import { FilterOptionsState } from '../../store/states/filter-options/filter-options.state';
 import { FilterParams } from '../../shared/models/filter.interfaces';
 import { MainInterface } from '../../shared/models/main.interfaces';
@@ -22,6 +22,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { CardComponent } from '../../shared/components/card/card.component';
 import { NgClass } from '@angular/common';
 import { setLoaderStatusAction } from '../../store/action/loader/loader.actions';
+import { GamesStatusState } from '../../store/states/wish-list-but/wish-list-buy.state';
 
 @Component({
   selector: 'app-games',
@@ -40,6 +41,7 @@ export class GamesComponent implements OnInit {
   gamesList = computed(() => this.games()?.results ?? []);
   filterOptions = signal<FilterParams | null>(null);
   filterInfo = computed(() => this.filterOptions() ?? this.defaultValue);
+  wishListGames = localStorage.getItem('games');
 
   activeGrid: boolean = true;
   activeCollomn: boolean = false;
@@ -95,7 +97,7 @@ export class GamesComponent implements OnInit {
         finalize(() => (this.cardSkeleton = false))
       )
       .subscribe((games) => {
-        this.gamesService.homeGames.set(games);
+        this.gamesService.games.set(games);
       });
   }
 
