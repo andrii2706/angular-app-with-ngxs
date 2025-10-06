@@ -39,14 +39,8 @@ export class FilterOptionsState {
   }
 
   @Action(btnClearFilterFormStatusAction)
-  setFilterButtonStatus(){
-
-  }
+  setFilterButtonStatus() {}
 
   @Action(btnClearSearchInputStatusAction)
-
-setSearchButtonStatus(){
-
-}
-
+  setSearchButtonStatus() {}
 }

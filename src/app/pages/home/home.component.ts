@@ -37,7 +37,7 @@ export class HomeComponent implements OnInit {
   private destroyRed = inject(DestroyRef);
 
   games = signal<MainInterface<Game> | null>(null);
-  gamesList = computed(() =>  this.games()?.results ?? []);
+  gamesList = computed(() => this.games()?.results ?? []);
   filterOptions = signal<FilterParams | null>(null);
   filterInfo = computed(() => this.filterOptions() ?? this.defaultValue);
 

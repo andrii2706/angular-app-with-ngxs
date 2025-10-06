@@ -85,10 +85,12 @@
         <button
           [disabled]="game()?.isBought"
           (click)="addToWishList(game())"
-          [ngClass]="{'bg-gray-800 opacity-75 hover:text-amber-300' : !game()?.isBought, 'btn btn-disabled': game()?.isBought}"
+          [ngClass]="{
+            'bg-gray-800 opacity-75 hover:text-amber-300': !game()?.isBought,
+            'btn btn-disabled': game()?.isBought,
+          }"
           class="flex w-full cursor-pointer items-center justify-between rounded-lg p-2 text-start"
         >
-
           @if (game()?.isBought) {
             Game added to Wish list
           } @else {
