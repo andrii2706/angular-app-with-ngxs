@@ -8,6 +8,6 @@ export const environment = {
     appId: '1:1005106472230:web:3095aa554c5e34e7698de7',
   },
   production: false,
-  apiKey: '85d9905e7cd7443c8983e54b4733abf5',
-  apiUrl: 'https://api.rawg.io/api/',
+  apiKey: '',
+  apiUrl: '',
 };

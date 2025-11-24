@@ -25,6 +25,7 @@ export class CardComponent {
   changeStyle = input<boolean>();
   genreInfo = output<string>();
   skeleton = input<boolean>();
+  imgChanges = input<boolean>();
 
   platforms = computed(() => this.game()?.platforms ?? []);
 

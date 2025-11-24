@@ -80,11 +80,12 @@
     }
   </div>
   <div
-    class="mt-10 grid justify-items-center gap-10"
+    class="mt-10 grid"
     [ngClass]="{
-      'big-table:grid-cols-2 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4': activeGrid,
+      'lg:grid-cols-[repeat(3, 225.333px)] xl:grid-cols-[repeat(3,310px)] 2xl:grid-cols-[repeat(3, 357px)]': activeGrid,
       'grid-cols-1': activeCollomn,
     }"
+    style="grid-gap: 10px;"
   >
     @for (
       item of gamesList()
@@ -94,6 +95,7 @@
       <app-card
         [skeleton]="cardSkeleton"
         [changeStyle]="activeCollomn"
+        [imgChanges]="activeCollomn"
         [game]="item"
         (genreInfo)="getGenreForRequest($event)"
       ></app-card>
