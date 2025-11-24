@@ -41,7 +41,9 @@ export class AppComponent implements OnInit {
     private authService: AuthService,
     private store: Store,
     private injector: Injector
-  ) {}
+  ) {
+    localStorage.setItem('games', '[]');
+  }
 
   ngOnInit(): void {
     if (!isPlatformBrowser(this.platformId)) {

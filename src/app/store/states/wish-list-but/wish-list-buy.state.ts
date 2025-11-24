@@ -65,7 +65,7 @@ export class GamesStatusState implements NgxsOnInit, NgxsAfterBootstrap, NgxsOnC
     console.log('[NGXS] GamesState changed', change);
     if (change.firstChange) {
       const games = localStorage.getItem('games');
-      localStorage.setItem('games', JSON.stringify(JSON.parse(games || '')));
+      if (games) localStorage.setItem('games', JSON.stringify(JSON.parse(games || '')));
     } else {
       localStorage.setItem('games', JSON.stringify(change.currentValue.games));
     }
