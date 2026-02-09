@@ -14,11 +14,11 @@ import {
 import { GamesService } from '../../shared/services/games/games.service';
 import { Game } from '../../shared/models/games.interfaces';
 import { MainInterface } from '../../shared/models/main.interfaces';
-import { JsonPipe, NgClass } from '@angular/common';
+import { CommonModule, NgClass } from '@angular/common';
 import { CardComponent } from '../../shared/components/card/card.component';
-import { NgxsOnChanges, NgxsSimpleChange, Store } from '@ngxs/store';
+import { Store } from '@ngxs/store';
 import { setLoaderStatusAction } from '../../store/action/loader/loader.actions';
-import { debounceTime, distinctUntilChanged, finalize, map, take } from 'rxjs';
+import { debounceTime, distinctUntilChanged, finalize, take } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FilterOptionsState } from '../../store/states/filter-options/filter-options.state';
 import { FilterParams } from '../../shared/models/filter.interfaces';

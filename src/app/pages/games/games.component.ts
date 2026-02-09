@@ -9,6 +9,7 @@ import {
   OnInit,
   runInInjectionContext,
   signal,
+  WritableSignal,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { debounceTime, distinctUntilChanged, finalize, take, map } from 'rxjs';
@@ -109,7 +110,7 @@ export class GamesComponent implements OnInit {
         take(1),
         finalize(() => this.store.dispatch(new setLoaderStatusAction(false)))
       )
-      .subscribe((gamesGenres) => {
+      .subscribe((gamesGenres: MainInterface<Game> | null) => {
         this.gamesService.games.set(gamesGenres);
       });
   }

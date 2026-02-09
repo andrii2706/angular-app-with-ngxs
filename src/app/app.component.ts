@@ -1,6 +1,6 @@
 import { setLoaderStatusAction } from './store/action/loader/loader.actions';
 import { AuthService } from './shared/services/auth/auth.service';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import {
   Component,
   DestroyRef,
@@ -24,7 +24,7 @@ import { SnackbarErrorState, SnackbarSuccessState } from './store/states/snackba
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, NavbarComponent, LoaderComponent, SnackbarComponent],
+  imports: [RouterOutlet, NavbarComponent, LoaderComponent, SnackbarComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })

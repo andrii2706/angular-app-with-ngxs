@@ -4,6 +4,7 @@ import { Platforms } from '../models/games.interfaces';
 
 @Pipe({
   name: 'icon',
+  standalone: true,
 })
 export class IconPipe implements PipeTransform {
   constructor(private sanitizer: DomSanitizer) {}

@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { LucideAngularModule } from 'lucide-angular';
@@ -9,7 +9,7 @@ import { FilterComponent } from '../filter/filter.component';
 
 @Component({
   selector: 'app-navbar',
-  imports: [CommonModule, RouterModule, LucideAngularModule, FilterComponent],
+  imports: [RouterModule, LucideAngularModule, FilterComponent],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
   standalone: true,

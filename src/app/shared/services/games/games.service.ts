@@ -1,6 +1,12 @@
-import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
-import { inject, Injectable, signal } from '@angular/core';
-import { tap, Observable, map } from 'rxjs';
+import {
+  HttpClient,
+  HttpHeaders,
+  HttpParams,
+  httpResource,
+  HttpResponse,
+} from '@angular/common/http';
+import { inject, Injectable, signal, WritableSignal } from '@angular/core';
+import { tap, Observable, map, of } from 'rxjs';
 import { environment } from '../../../../environment/environment';
 import { Game, GameDetails } from '../../models/games.interfaces';
 import { MainInterface } from '../../models/main.interfaces';
@@ -32,29 +38,29 @@ export class GamesService {
     this.savedGames.set(this.savedGamesArr);
   }
 
-  getGames(page: number): Observable<MainInterface<Game>> {
-    const paramsForGames = new HttpParams({
-      fromObject: {
+  getGames(page: number): Observable<MainInterface<Game> | null> {
+    const gamesResource = httpResource<MainInterface<Game>>(() => ({
+      url: '/api/games',
+      params: {
         page,
         key: '85d9905e7cd7443c8983e54b4733abf5',
       },
-    });
-    return this.httpClient.get<MainInterface<Game>>(`/api/games`, {
-      params: paramsForGames,
-    });
+    }));
+    this.games.set(gamesResource.value() ?? null);
+    return of(this.games() ?? null);
   }
 
-  getGamesWithGenres(page: number, genres?: string): Observable<MainInterface<Game>> {
-    const paramsForGames = new HttpParams({
-      fromObject: {
+  getGamesWithGenres(page: number, genres?: string): Observable<MainInterface<Game> | null> {
+    const gamesWithResource = httpResource<MainInterface<Game>>(() => ({
+      url: '/api/games',
+      params: {
         page,
         genres: genres ? genres : '',
         key: '85d9905e7cd7443c8983e54b4733abf5',
       },
-    });
-    return this.httpClient.get<MainInterface<Game>>(`/api/games`, {
-      params: paramsForGames,
-    });
+    }));
+    this.games.set(gamesWithResource.value() ?? null);
+    return of(this.games() ?? null);
   }
 
   getGameById(id: number | null): Observable<GameDetails> {
