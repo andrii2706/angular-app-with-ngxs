@@ -14,6 +14,8 @@ export const gamesResolver: ResolveFn<MainInterface<Game> | null> = (route, stat
   const destroyRef = inject(DestroyRef);
   const wishListGames = localStorage.getItem('games');
 
+  store.dispatch(new setLoaderStatusAction(true));
+
   return gamesService.getGames(1).pipe(
     tap((games) => {
       gamesService.games.set(games as MainInterface<Game>);

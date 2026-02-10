@@ -5,12 +5,13 @@ import {
   httpResource,
   HttpResponse,
 } from '@angular/common/http';
-import { inject, Injectable, signal, WritableSignal } from '@angular/core';
-import { tap, Observable, map, of } from 'rxjs';
+import { effect, inject, Injectable, signal, WritableSignal } from '@angular/core';
+import { tap, Observable, map, of, filter, take } from 'rxjs';
 import { environment } from '../../../../environment/environment';
 import { Game, GameDetails } from '../../models/games.interfaces';
 import { MainInterface } from '../../models/main.interfaces';
 import { FilterParams } from '../../models/filter.interfaces';
+import { toObservable } from '@angular/core/rxjs-interop';
 
 @Injectable({
   providedIn: 'root',
@@ -40,14 +41,17 @@ export class GamesService {
 
   getGames(page: number): Observable<MainInterface<Game> | null> {
     const gamesResource = httpResource<MainInterface<Game>>(() => ({
-      url: '/api/games',
-      params: {
-        page,
-        key: '85d9905e7cd7443c8983e54b4733abf5',
-      },
+      url: 'http://localhost:3000/api/games',
+      method: 'GET',
     }));
-    this.games.set(gamesResource.value() ?? null);
-    return of(this.games() ?? null);
+
+    effect(() => {
+      const value = gamesResource.value();
+      if (value) {
+        this.games.set(value);
+      }
+    });
+    return toObservable(gamesResource.value).pipe(filter(Boolean), take(1));
   }
 
   getGamesWithGenres(page: number, genres?: string): Observable<MainInterface<Game> | null> {

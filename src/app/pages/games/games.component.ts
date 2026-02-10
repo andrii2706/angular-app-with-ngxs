@@ -38,12 +38,6 @@ export class GamesComponent implements OnInit {
   private injector = inject(Injector);
   private destroyRed = inject(DestroyRef);
 
-  games = signal<MainInterface<Game> | null>(null);
-  gamesList = computed(() => this.games()?.results ?? []);
-  filterOptions = signal<FilterParams | null>(null);
-  filterInfo = computed(() => this.filterOptions() ?? this.defaultValue);
-  wishListGames = localStorage.getItem('games');
-
   activeGrid: boolean = true;
   activeCollomn: boolean = false;
   showAndHideDesign: boolean = true;
@@ -59,6 +53,15 @@ export class GamesComponent implements OnInit {
     developers: '',
     tags: '',
   };
+
+  games = signal<MainInterface<Game> | null>(null);
+  gamesList = computed(() => {
+    this.cardSkeleton = !this.games()?.results?.length;
+    return this.games()?.results ?? [];
+  });
+  filterOptions = signal<FilterParams | null>(null);
+  filterInfo = computed(() => this.filterOptions() ?? this.defaultValue);
+  wishListGames = localStorage.getItem('games');
 
   @HostListener('window:resize', ['$event'])
   onResize(event: Event) {

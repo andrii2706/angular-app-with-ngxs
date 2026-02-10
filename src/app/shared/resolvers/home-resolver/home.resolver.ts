@@ -25,12 +25,10 @@ export const homeResolver: ResolveFn<MainInterface<Game>> = (route, state) => {
       const gameId = gamesInfo.map((game: { game: Game; status: string }) => game.game.id);
       const gamesSaved = games?.results?.map((g) => ({ ...g, isBought: gameId.includes(g.id) }));
       const homeGames = {
-        count: games.count,
-        next: games.next,
-        previous: games.previous,
         results: gamesSaved,
-        seo_title: games.seo_title,
-        seo_h1: games.seo_h1,
+        esresponse: {
+          total: games.results?.length ?? 0,
+        },
       };
       gamesService.homeGames.set(homeGames);
       gamesService.defaultGames.set(homeGames);

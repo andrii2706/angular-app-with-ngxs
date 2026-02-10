@@ -1,4 +1,3 @@
-@if (games()?.results?.length) {
   <div class="flex items-center justify-between">
     <h1 class="text-3xl">Games list</h1>
     <button class="btn btn-soft" (click)="returnToDefault()">Return to Default List</button>
@@ -86,9 +85,23 @@
       'grid-cols-1': activeCollomn,
     }"
   >
+  @if(gamesList().length === 0){
+      <app-card
+        [skeleton]="cardSkeleton"
+      ></app-card>
+      <app-card
+        [skeleton]="cardSkeleton"
+      ></app-card>
+      <app-card
+        [skeleton]="cardSkeleton"
+      ></app-card>
+      <app-card
+        [skeleton]="cardSkeleton"
+      ></app-card>
+  }@else {
     @for (
       item of gamesList()
-        | paginate: { itemsPerPage: 25, currentPage: page, totalItems: games()?.count };
+        | paginate: { itemsPerPage: 10, currentPage: page, totalItems: games()?.esresponse?.total};
       track $index
     ) {
       <app-card
@@ -98,12 +111,14 @@
         (genreInfo)="getGenreForRequest($event)"
       ></app-card>
     }
+  }
+
   </div>
   <div class="mt-[50px] flex items-center justify-center">
     <pagination-controls class="pagination" (pageChange)="navigateTo($event)"></pagination-controls>
   </div>
-} @else {
+ <!-- @else {
   <div class="flex items-center justify-center">
     <h2 class="text-xl">No Games found</h2>
   </div>
-}
+} -->

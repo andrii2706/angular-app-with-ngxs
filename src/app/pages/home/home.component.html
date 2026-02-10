@@ -89,7 +89,7 @@
   >
     @for (
       item of gamesList()
-        | paginate: { itemsPerPage: 25, currentPage: page, totalItems: games()?.count };
+        | paginate: { itemsPerPage: 25, currentPage: page, totalItems: games()?.esresponse?.total};
       track $index
     ) {
       <app-card
