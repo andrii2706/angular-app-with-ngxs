@@ -23,7 +23,6 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { CardComponent } from '../../shared/components/card/card.component';
 import { NgClass } from '@angular/common';
 import { setLoaderStatusAction } from '../../store/action/loader/loader.actions';
-import { GamesStatusState } from '../../store/states/wish-list-but/wish-list-buy.state';
 
 @Component({
   selector: 'app-games',

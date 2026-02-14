@@ -1,7 +1,6 @@
 import { Component, input, computed, inject, output } from '@angular/core';
 import { Game } from '../../models/games.interfaces';
 import { DatePipe, NgClass } from '@angular/common';
-import { IconPipe } from '../../pipes/icon.pipe';
 import { LucideAngularModule } from 'lucide-angular';
 import { Router } from '@angular/router';
 import { GamesService } from '../../services/games/games.service';
@@ -11,7 +10,7 @@ import { AddToWishList } from '../../../store/action/wish-list-buy/wish-list-buy
 
 @Component({
   selector: 'app-card',
-  imports: [DatePipe, NgClass, IconPipe, LucideAngularModule],
+  imports: [DatePipe, NgClass, LucideAngularModule],
   standalone: true,
   templateUrl: './card.component.html',
   styleUrl: './card.component.scss',

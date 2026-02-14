@@ -8,7 +8,7 @@
     } @else if (snackbarErrorStatus()) {
       <app-snackbar [snackBarStatus]="'error'" [message]="snackbarErrorMessage()"></app-snackbar>
     }
-    <div class="app_container">
+    <div>
       <router-outlet></router-outlet>
     </div>
   }

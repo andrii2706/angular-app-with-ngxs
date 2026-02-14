@@ -82,14 +82,15 @@
   <div
     class="mt-10 grid"
     [ngClass]="{
-      'lg:grid-cols-[repeat(3, 225.333px)] xl:grid-cols-[repeat(3,310px)] 2xl:grid-cols-[repeat(3, 357px)]': activeGrid,
+      'lg:grid-cols-[repeat(3, 225.333px)] 2xl:grid-cols-[repeat(3, 357px)] xl:grid-cols-[repeat(3,310px)]':
+        activeGrid,
       'grid-cols-1': activeCollomn,
     }"
-    style="grid-gap: 10px;"
+    style="grid-gap: 10px"
   >
     @for (
       item of gamesList()
-        | paginate: { itemsPerPage: 25, currentPage: page, totalItems: games()?.esresponse?.total};
+        | paginate: { itemsPerPage: 25, currentPage: page, totalItems: games()?.esresponse?.total };
       track $index
     ) {
       <app-card
