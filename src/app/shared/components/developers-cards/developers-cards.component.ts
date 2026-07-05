@@ -1,4 +1,4 @@
-import { Component, computed, input, output } from '@angular/core';
+import { Component, computed, input, output, ChangeDetectionStrategy } from '@angular/core';
 import { Developers } from '../../models/developers.interface';
 
 @Component({
@@ -6,6 +6,7 @@ import { Developers } from '../../models/developers.interface';
   imports: [],
   templateUrl: './developers-cards.component.html',
   styleUrl: './developers-cards.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: true,
 })
 export class DevelopersCardsComponent {

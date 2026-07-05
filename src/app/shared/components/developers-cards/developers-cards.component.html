@@ -24,7 +24,7 @@
     </div>
   } @else {
     <figure>
-      <img [src]="developers()?.image_background" alt="Shoes" />
+      <img [src]="$safeNavigationMigration(developers()?.image_background)" alt="Shoes" />
     </figure>
 
     <div class="card-body">

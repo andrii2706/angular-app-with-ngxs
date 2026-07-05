@@ -6,6 +6,7 @@ import {
   OnInit,
   runInInjectionContext,
   signal,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { GamesService } from '../../../../shared/services/games/games.service';
 import { GameDetails } from '../../../../shared/models/games.interfaces';
@@ -15,6 +16,7 @@ import { GameDetails } from '../../../../shared/models/games.interfaces';
   imports: [],
   templateUrl: './game-details.component.html',
   styleUrl: './game-details.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: true,
 })
 export class GameDetailsComponent implements OnInit {

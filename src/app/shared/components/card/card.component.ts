@@ -1,4 +1,4 @@
-import { Component, input, computed, inject, output } from '@angular/core';
+import { Component, input, computed, inject, output, ChangeDetectionStrategy } from '@angular/core';
 import { Game } from '../../models/games.interfaces';
 import { DatePipe, NgClass } from '@angular/common';
 import { LucideAngularModule } from 'lucide-angular';
@@ -13,6 +13,7 @@ import { AddToWishList } from '../../../store/action/wish-list-buy/wish-list-buy
   imports: [DatePipe, NgClass, LucideAngularModule],
   standalone: true,
   templateUrl: './card.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './card.component.scss',
 })
 export class CardComponent {

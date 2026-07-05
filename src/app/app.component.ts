@@ -11,6 +11,7 @@ import {
   PLATFORM_ID,
   runInInjectionContext,
   signal,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
@@ -26,6 +27,7 @@ import { SnackbarErrorState, SnackbarSuccessState } from './store/states/snackba
   standalone: true,
   imports: [RouterOutlet, NavbarComponent, LoaderComponent, SnackbarComponent],
   templateUrl: './app.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit {

@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { LucideAngularModule } from 'lucide-angular';
 import {
   developersFilter,
@@ -27,6 +27,7 @@ import { runInThisContext } from 'node:vm';
   imports: [LucideAngularModule, ReactiveFormsModule],
   templateUrl: './filter.component.html',
   styleUrl: './filter.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: true,
 })
 export class FilterComponent implements OnInit {

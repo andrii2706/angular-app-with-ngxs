@@ -1,6 +1,10 @@
 <section class="h-fit w-full rounded-xl bg-gray-600 p-5">
   <div class="flex items-start justify-between">
-    <img class="max-w-[700px] rounded-xl" [src]="gameByIdInfo()?.background_image" alt="" />
+    <img
+      class="max-w-[700px] rounded-xl"
+      [src]="$safeNavigationMigration(gameByIdInfo()?.background_image)"
+      alt=""
+    />
     <div>
       <h2>{{ gameByIdInfo()?.name }}</h2>
       <h3></h3>

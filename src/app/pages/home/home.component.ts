@@ -10,6 +10,7 @@ import {
   OnInit,
   runInInjectionContext,
   signal,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { GamesService } from '../../shared/services/games/games.service';
 import { Game } from '../../shared/models/games.interfaces';
@@ -28,6 +29,7 @@ import { FilterParams } from '../../shared/models/filter.interfaces';
   imports: [NgClass, CardComponent, NgxPaginationModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: true,
 })
 export class HomeComponent implements OnInit {

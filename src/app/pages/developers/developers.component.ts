@@ -8,6 +8,7 @@ import {
   OnInit,
   runInInjectionContext,
   signal,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { DevelopersService } from '../../shared/services/developers/developers.service';
 import { Store } from '@ngxs/store';
@@ -22,6 +23,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   selector: 'app-developers',
   imports: [NgxPaginationModule, DevelopersCardsComponent],
   templateUrl: './developers.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './developers.component.scss',
 })
 export class DevelopersComponent implements OnInit {

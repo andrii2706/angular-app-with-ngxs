@@ -1,6 +1,6 @@
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from './../../../shared/services/auth/auth.service';
-import { Component, inject, OnInit, output } from '@angular/core';
+import { Component, inject, OnInit, output, ChangeDetectionStrategy } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { setLoaderStatusAction } from '../../../store/action/loader/loader.actions';
 import { Router } from '@angular/router';
@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
   selector: 'app-register',
   imports: [],
   templateUrl: './register.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './register.component.scss',
 })
 export class RegisterComponent implements OnInit {

@@ -93,7 +93,12 @@
   } @else {
     @for (
       item of gamesList()
-        | paginate: { itemsPerPage: 10, currentPage: page, totalItems: games()?.esresponse?.total };
+        | paginate
+          : {
+              itemsPerPage: 10,
+              currentPage: page,
+              totalItems: $safeNavigationMigration(games()?.esresponse?.total),
+            };
       track $index
     ) {
       <app-card

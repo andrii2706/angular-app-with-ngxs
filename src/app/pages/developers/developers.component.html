@@ -5,7 +5,11 @@
     @for (
       item of developersInfo()
         | paginate
-          : { itemsPerPage: 25, currentPage: page, totalItems: developers()?.esresponse?.total };
+          : {
+              itemsPerPage: 25,
+              currentPage: page,
+              totalItems: $safeNavigationMigration(developers()?.esresponse?.total),
+            };
       track $index
     ) {
       <app-developers-cards [skeleton]="cardSkeleton" [developers]="item"></app-developers-cards>

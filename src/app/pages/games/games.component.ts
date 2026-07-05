@@ -10,6 +10,7 @@ import {
   runInInjectionContext,
   signal,
   WritableSignal,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { debounceTime, distinctUntilChanged, finalize, take, map } from 'rxjs';
@@ -29,6 +30,7 @@ import { setLoaderStatusAction } from '../../store/action/loader/loader.actions'
   imports: [NgClass, CardComponent, NgxPaginationModule],
   templateUrl: './games.component.html',
   styleUrl: './games.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: true,
 })
 export class GamesComponent implements OnInit {
