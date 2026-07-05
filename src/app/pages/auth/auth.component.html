@@ -7,25 +7,35 @@
     <div class="w-1/2 bg-[url('/images/photo_2026-02-14_18-37-33.jpg')] bg-cover bg-center"></div>
   </div>
 
-  <div class="absolute z-10 w-[400px] rounded-xl bg-base-100 p-8 shadow-2xl">
+  <div class="bg-base-100 absolute z-10 w-[400px] rounded-xl p-8 shadow-2xl">
     @if (registerForm) {
       <h2 class="mb-6 text-center text-2xl font-bold text-black">Register</h2>
       <app-register (showLogin)="returnToLoginBlock($event)"></app-register>
     } @else {
       <h2 class="mb-6 text-center text-2xl font-bold text-white">Login</h2>
       <form class="flex flex-col gap-4">
-        <input [formField]="loginCredetialsForm.email" type="email" placeholder="Input your email" class="input w-full"  />
-        <input [formField]="loginCredetialsForm.password" type="password" placeholder="Input your password" class="input w-full" />
+        <input
+          [formField]="loginCredetialsForm.email"
+          type="email"
+          placeholder="Input your email"
+          class="input w-full"
+        />
+        <input
+          [formField]="loginCredetialsForm.password"
+          type="password"
+          placeholder="Input your password"
+          class="input w-full"
+        />
       </form>
       <div class="mt-6 flex flex-col gap-3">
         <button
-          class="btn w-full border border-gray-300 bg-base-200 text-white"
+          class="btn bg-base-200 w-full border border-gray-300 text-white"
           (click)="loginWithCredetials()"
         >
           Login with Email
         </button>
 
-        <button (click)="loginWithGoogle()" class="btn border-[#e5e5e5] bg-base-200 text-white">
+        <button (click)="loginWithGoogle()" class="btn bg-base-200 border-[#e5e5e5] text-white">
           <svg
             aria-label="Google logo"
             width="16"
@@ -46,7 +56,10 @@
           </svg>
           Login with Google
         </button>
-        <button class="mt-4 text-sm text-blue-600 hover:underline cursor-pointer" (click)="showRegister()">
+        <button
+          class="mt-4 cursor-pointer text-sm text-blue-600 hover:underline"
+          (click)="showRegister()"
+        >
           Don't have an account? Register
         </button>
       </div>
