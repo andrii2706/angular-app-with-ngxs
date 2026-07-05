@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { LucideAngularModule } from 'lucide-angular';
 import { AuthService } from '../../services/auth/auth.service';
@@ -20,6 +20,8 @@ export class NavbarComponent {
 
   showMenuClick: boolean = false;
   showFilterProp: boolean = false;
+
+  isUserLogined = computed(() => this.authService.LoginStatus);
 
   showFilter() {
     this.showFilterProp = !this.showFilterProp;
