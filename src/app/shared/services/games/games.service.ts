@@ -75,13 +75,11 @@ export class GamesService {
     const query = (dates: string) => {
       return new HttpParams({
         fromObject: {
-          key: '85d9905e7cd7443c8983e54b4733abf5',
-          page,
           dates: dates,
         },
       });
     };
-    return this.httpClient.get<MainInterface<Game>>(`/api/games`, {
+    return this.httpClient.get<MainInterface<Game>>(`/api/games/last-released`, {
       params: query(dates),
     });
   }

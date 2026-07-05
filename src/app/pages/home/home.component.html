@@ -80,13 +80,11 @@
     }
   </div>
   <div
-    class="mt-10 grid"
+    class="mt-10 grid justify-items-center gap-10"
     [ngClass]="{
-      'lg:grid-cols-[repeat(3, 225.333px)] 2xl:grid-cols-[repeat(3, 357px)] xl:grid-cols-[repeat(3,310px)]':
-        activeGrid,
+      'grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4': activeGrid,
       'grid-cols-1': activeCollomn,
     }"
-    style="grid-gap: 10px"
   >
     @for (
       item of gamesList()
