@@ -41,7 +41,7 @@ export class GamesService {
 
   getGames(page: number): Observable<MainInterface<Game> | null> {
     const gamesResource = httpResource<MainInterface<Game>>(() => ({
-      url: 'http://localhost:3000/api/games',
+      url: '/api/games',
       method: 'GET',
     }));
 
@@ -68,14 +68,7 @@ export class GamesService {
   }
 
   getGameById(id: number | null): Observable<GameDetails> {
-    const paramsForGameBtId = new HttpParams({
-      fromObject: {
-        key: this.apiKey,
-      },
-    });
-    return this.httpClient.get<GameDetails>(`/api/games/${id}`, {
-      params: paramsForGameBtId,
-    });
+    return this.httpClient.get<GameDetails>(`/api/games/${id}`);
   }
 
   getLastReleasedGames(page: number, dates: string): Observable<MainInterface<Game>> {
