@@ -27,13 +27,13 @@
       </div>
     </div>
   } @else {
-<figure class="h-[216px] w-full overflow-hidden">
-  <img
-    class="h-full w-full object-cover"
-    [src]="$safeNavigationMigration(game()?.background_image)"
-    alt="{{ game()?.name }}"
-  />
-</figure>
+    <figure class="h-[216px] w-full overflow-hidden">
+      <img
+        class="h-full w-full object-cover"
+        [src]="$safeNavigationMigration(game()?.background_image)"
+        alt="{{ game()?.name }}"
+      />
+    </figure>
 
     <div class="card-body">
       <!-- @if(platforms()){
@@ -54,16 +54,18 @@
 
       <div class="divider my-1"></div>
 
-      <div class="card-actions flex w-full items-center justify-between">
-        <h4>Genres:</h4>
-        <div class="[&>button:nth-child(n+5)]:mt-2">
-          @for (item of game()?.genres; track $index) {
-            <button
-              class="badge badge-outline mr-2 cursor-pointer"
-              (click)="genres(item.id.toString())"
-            >
+      <div class="card-actions flex w-full items-start justify-between gap-2">
+        <h4 class="shrink-0">Genres:</h4>
+        <div class="flex flex-wrap justify-end gap-2">
+          @for (item of visibleGenres(); track item.id) {
+            <button class="badge badge-outline cursor-pointer" (click)="genres(item.id.toString())">
               {{ item.name }}
             </button>
+          }
+          @if (extraGenresCount() > 0) {
+            <span class="badge badge-ghost" [title]="hiddenGenresTitle()">
+              +{{ extraGenresCount() }}
+            </span>
           }
         </div>
       </div>

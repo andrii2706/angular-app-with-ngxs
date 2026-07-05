@@ -29,6 +29,23 @@ export class CardComponent {
 
   platforms = computed(() => this.game()?.platforms ?? []);
 
+  private readonly maxVisibleGenres = 3;
+
+  visibleGenres = computed(() => this.game()?.genres?.slice(0, this.maxVisibleGenres) ?? []);
+
+  extraGenresCount = computed(() => {
+    const total = this.game()?.genres?.length ?? 0;
+    return Math.max(0, total - this.maxVisibleGenres);
+  });
+
+  hiddenGenresTitle = computed(
+    () =>
+      this.game()
+        ?.genres?.slice(this.maxVisibleGenres)
+        .map((g) => g.name)
+        .join(', ') ?? ''
+  );
+
   genres(genre: string) {
     this.genreInfo.emit(genre);
   }
