@@ -27,9 +27,13 @@
       </div>
     </div>
   } @else {
-    <figure>
-      <img [src]="$safeNavigationMigration(game()?.background_image)" alt="Shoes" />
-    </figure>
+<figure class="h-[216px] w-full overflow-hidden">
+  <img
+    class="h-full w-full object-cover"
+    [src]="$safeNavigationMigration(game()?.background_image)"
+    alt="{{ game()?.name }}"
+  />
+</figure>
 
     <div class="card-body">
       <!-- @if(platforms()){

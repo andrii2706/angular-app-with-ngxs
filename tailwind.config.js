@@ -2,7 +2,7 @@ export default {
   content: ['./src/**/*.{html,ts}'],
   theme: {
     extend: {
-      screen: {
+      screens: {
         sm: '640px',
         md: '768px',
         'big-table': '824px',
