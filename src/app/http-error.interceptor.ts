@@ -20,7 +20,9 @@ export const httpErrorInterceptor: HttpInterceptorFn = (req, next) => {
         errorMsg = `Error Code: ${error.status}\nMessage: ${error.message}`;
 
         if (error.status === 404 || error.status === 500) {
-          snackbarService.show('Something went wrong !', 'error', 800);
+          snackbarService.show('Something went wrong !', 'error', 1200);
+        } else if (error.status === 502) {
+          snackbarService.show('We have a problem with our Server !', 'error', 1200);
         } else if (!navigator.onLine) {
           if (error.status === 0) {
             router.navigate(['/no-internet-connection']);
