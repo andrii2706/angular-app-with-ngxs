@@ -10,7 +10,7 @@ import {
 import { withNgxsReduxDevtoolsPlugin } from '@ngxs/devtools-plugin';
 import { withNgxsFormPlugin } from '@ngxs/form-plugin';
 import { provideStore } from '@ngxs/store';
-import { provideHttpClient, withXhr } from '@angular/common/http';
+import { provideHttpClient, withInterceptors, withXhr } from '@angular/common/http';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
@@ -57,12 +57,13 @@ import {
 import { SnackbarErrorState, SnackbarSuccessState } from './store/states/snackbar/snackbar.state';
 import { FilterOptionsState } from './store/states/filter-options/filter-options.state';
 import { GamesStatusState } from './store/states/wish-list-but/wish-list-buy.state';
+import { httpErrorInterceptor } from './http-error.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    provideHttpClient(withXhr()),
+    provideHttpClient(withXhr(), withInterceptors([httpErrorInterceptor])),
     provideClientHydration(withEventReplay(), withNoIncrementalHydration()),
     provideStore(
       [LoaderState, SnackbarSuccessState, SnackbarErrorState, FilterOptionsState, GamesStatusState],

@@ -57,4 +57,13 @@ export const routes: Routes = [
     canActivate: [authGuard],
     resolve: [profileResolver],
   },
+  {
+    path: 'no-internet-connection',
+    loadComponent: () =>
+      import('./pages/no-internet-connection/no-internet-connection.component').then(
+        (c) => c.NoInternetConnectionComponent
+      ),
+    title: 'No Internet Connection',
+    canActivate: [authGuard],
+  },
 ];
