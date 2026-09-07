@@ -23,10 +23,11 @@ import { debounceTime, distinctUntilChanged, finalize, take } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FilterOptionsState } from '../../store/states/filter-options/filter-options.state';
 import { FilterParams } from '../../shared/models/filter.interfaces';
+import { NewsComponent } from './components/news/news.component';
 
 @Component({
   selector: 'app-home',
-  imports: [NgClass, CardComponent, NgxPaginationModule],
+  imports: [NgClass, CardComponent, NgxPaginationModule, NewsComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   changeDetection: ChangeDetectionStrategy.Eager,

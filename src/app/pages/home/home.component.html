@@ -1,7 +1,8 @@
+<section class="flex justify-center-safe gap-3">
+  <div class="w-w-3/5">
 @if (games()?.results?.length) {
   <div class="flex items-center justify-between">
     <h1 class="text-3xl">Games list</h1>
-    <button class="btn btn-soft" (click)="returnToDefault()">Return to Default List</button>
     @if (showAndHideDesign) {
       <div>
         <span class="text-white opacity-50">Display options:</span>
@@ -82,7 +83,7 @@
   <div
     class="mt-10 grid justify-items-center gap-10"
     [ngClass]="{
-      'grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4': activeGrid,
+      'grid-cols-1 lg:grid-cols-2': activeGrid,
       'grid-cols-1': activeCollomn,
     }"
   >
@@ -113,3 +114,11 @@
     <h2 class="text-xl">No Games found</h2>
   </div>
 }
+  </div>
+    <div class="w-2/5  flex flex-col gap-3">
+       <h1 class="text-3xl flex justify-end">Games News</h1>
+       <div class="flex flex-col gap-3"><app-news></app-news></div>
+  </div>
+</section>
+
+
