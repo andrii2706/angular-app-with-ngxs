@@ -7,6 +7,7 @@ import { GamesService } from '../../services/games/games.service';
 import { GamesStatusEnum } from '../../enums/games-status.enum';
 import { Store } from '@ngxs/store';
 import { AddToWishList } from '../../../store/action/wish-list-buy/wish-list-buy.action';
+import { imgEmptyView } from '../../constants/main.constants';
 
 @Component({
   selector: 'app-card',
@@ -21,6 +22,9 @@ export class CardComponent {
   private gamesService = inject(GamesService);
   private store = inject(Store);
 
+  private readonly maxVisibleGenres = 3;
+  readonly imgEmptyView = imgEmptyView;
+
   game = input<Game>();
   changeStyle = input<boolean>();
   genreInfo = output<string>();
@@ -28,8 +32,6 @@ export class CardComponent {
   imgChanges = input<boolean>();
 
   platforms = computed(() => this.game()?.platforms ?? []);
-
-  private readonly maxVisibleGenres = 3;
 
   visibleGenres = computed(() => this.game()?.genres?.slice(0, this.maxVisibleGenres) ?? []);
 

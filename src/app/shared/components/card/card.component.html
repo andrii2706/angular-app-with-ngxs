@@ -30,7 +30,7 @@
     <figure class="h-[216px] w-full overflow-hidden">
       <img
         class="h-full w-full object-cover"
-        [src]="$safeNavigationMigration(game()?.background_image)"
+        [src]="game()?.background_image ? $safeNavigationMigration(game()?.background_image) : imgEmptyView "
         alt="{{ game()?.name }}"
       />
     </figure>
